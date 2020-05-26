@@ -53,6 +53,10 @@
                 font-size: 44px;
             }
 
+            .manutenzione{
+                font-size: 30px;
+            }
+
             .links > a {
                 color: #636b6f;
                 padding: 0 25px;
@@ -88,6 +92,10 @@
 
                 <div class="subtitle m-b-md">
                     Sviluppo AGILE
+                </div>
+
+                <div class="manutenzione m-b-md">
+                    Sito in costruzione
                 </div>
 
                 <div class="links">
