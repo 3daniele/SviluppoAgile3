@@ -86,16 +86,17 @@
             @endif
 
             <div class="content">
+                
+                <div class="manutenzione m-b-md">
+                    Sito in costruzione
+                </div>
+                
                 <div class="title m-b-md">
                     Gruppo 3
                 </div>
 
                 <div class="subtitle m-b-md">
                     Sviluppo AGILE
-                </div>
-
-                <div class="manutenzione m-b-md">
-                    Sito in costruzione
                 </div>
 
                 <div class="links">
