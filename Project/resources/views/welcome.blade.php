@@ -67,6 +67,16 @@
                 text-transform: uppercase;
             }
 
+            .nomi {
+                color: #636b6f;
+                padding: 0 25px;
+                font-size: 10px;
+                font-weight: 600;
+                letter-spacing: .1rem;
+                text-decoration: none;
+                text-transform: uppercase;
+            }
+
             .m-b-md {
                 margin-bottom: 30px;
             }
@@ -101,6 +111,10 @@
 
                 <div class="links">
                     <a href="https://github.com/3daniele/SviluppoAgile3">GitHub</a>
+                </div>
+
+                <div class="nomi">
+                    Chiara  Daniele     Domenico    Francesca
                 </div>
             </div>
         </div>
