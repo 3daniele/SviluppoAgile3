@@ -27,9 +27,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Auth::routes();
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard') -> middleware('verified');
-
+Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 
 Route::post('/hosting/new_party', 'HostingController@create')->name('hosting');
