@@ -13,10 +13,10 @@ class CreatePlaylistTable extends Migration
      */
     public function up()
     {
-        Schema::create('playlist', function (Blueprint $table) {
-            $table->id('id_playlist');
-            $table->unsignedBigInteger('hosting');
-            $table->unsignedBigInteger('music');
+        Schema::create('playlists', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('hosting_id');
+            $table->unsignedBigInteger('music_id');
         });
     }
 

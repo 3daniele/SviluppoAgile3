@@ -31,3 +31,5 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard') -> middleware('verified');
 
+
+Route::post('/hosting/new_party', 'HostingController@create')->name('hosting');

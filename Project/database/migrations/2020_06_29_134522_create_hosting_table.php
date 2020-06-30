@@ -13,11 +13,11 @@ class CreateHostingTable extends Migration
      */
     public function up()
     {
-        Schema::create('hosting', function (Blueprint $table) {
-            $table->id('id_hosting');
-            $table->unsignedBigInteger('user');
+        Schema::create('hostings', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('user_id');
             $table->string('name');
-            $table->unsignedBigInteger('genre');
+            $table->unsignedBigInteger('genre_id');
             $table->string('mod');
             $table->enum('type',['battle','democracy']);
             $table->enum('open',['yes','no']);
