@@ -14,39 +14,39 @@ class CreateForeignkeyTable extends Migration
     public function up()
     {
         //Hosting
-        Schema::table('hosting', function(Blueprint $table0) {
-            $table0->foreign('user')->references('id')
+        Schema::table('hostings', function(Blueprint $table0) {
+            $table0->foreign('user_id')->references('id')
                 ->on('users')->onDelete('cascade'); });
 
-        Schema::table('hosting', function(Blueprint $table0) {
-            $table0->foreign('genre')->references('id_genre')
-                ->on('genre')->onDelete('cascade'); });
+        Schema::table('hostings', function(Blueprint $table0) {
+            $table0->foreign('genre_id')->references('id')
+                ->on('genres')->onDelete('cascade'); });
         //Enter
-        Schema::table('enter', function(Blueprint $table0) {
-            $table0->foreign('user')->references('id')
+        Schema::table('enters', function(Blueprint $table0) {
+            $table0->foreign('user_id')->references('id')
                 ->on('users')->onDelete('cascade'); });
 
-        Schema::table('enter', function(Blueprint $table0) {
-            $table0->foreign('hosting')->references('id_hosting')
-                ->on('hosting')->onDelete('cascade'); });
+        Schema::table('enters', function(Blueprint $table0) {
+            $table0->foreign('hosting_id')->references('id')
+                ->on('hostings')->onDelete('cascade'); });
         
         //BanUser
-        Schema::table('banUser', function(Blueprint $table0) {
-            $table0->foreign('user')->references('id')
+        Schema::table('banUsers', function(Blueprint $table0) {
+            $table0->foreign('user_id')->references('id')
                 ->on('users')->onDelete('cascade'); });
 
-        Schema::table('banUser', function(Blueprint $table0) {
-            $table0->foreign('hosting')->references('id_hosting')
-                ->on('hosting')->onDelete('cascade'); });
+        Schema::table('banUsers', function(Blueprint $table0) {
+            $table0->foreign('hosting_id')->references('id')
+                ->on('hostings')->onDelete('cascade'); });
 
         //PlayList
-        Schema::table('playlist', function(Blueprint $table0) {
-            $table0->foreign('hosting')->references('id_hosting')
-                ->on('hosting')->onDelete('cascade'); });
+        Schema::table('playlists', function(Blueprint $table0) {
+            $table0->foreign('hosting_id')->references('id')
+                ->on('hostings')->onDelete('cascade'); });
 
-        Schema::table('playlist', function(Blueprint $table0) {
-            $table0->foreign('music')->references('id_music')
-                ->on('music')->onDelete('cascade'); });
+        Schema::table('playlists', function(Blueprint $table0) {
+            $table0->foreign('music_id')->references('id')
+                ->on('musics')->onDelete('cascade'); });
     }
 
     /**

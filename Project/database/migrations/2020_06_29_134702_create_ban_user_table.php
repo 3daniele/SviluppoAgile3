@@ -13,10 +13,10 @@ class CreateBanUserTable extends Migration
      */
     public function up()
     {
-        Schema::create('banUser', function (Blueprint $table) {
-            $table->id('id_ban');
-            $table->unsignedBigInteger('user');
-            $table->unsignedBigInteger('hosting');
+        Schema::create('banUsers', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('hosting_id');
             $table->timestamps();
         });
     }

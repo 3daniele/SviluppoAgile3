@@ -13,10 +13,10 @@ class CreateEnterTable extends Migration
      */
     public function up()
     {
-        Schema::create('enter', function (Blueprint $table) {
-            $table->id('id_enter');
-            $table->unsignedBigInteger('user');
-            $table->unsignedBigInteger('hosting');
+        Schema::create('enters', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('hosting_id');
             $table->timestamps();
         });
     }
