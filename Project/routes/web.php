@@ -23,4 +23,9 @@ Route::get('/home', 'HomeController@index')->name('home')->middleware('verified'
 
 Route::get('/dashboard', 'DashboardController@index')->name('dashboard')->middleware('verified');
 
-Route::post('/hosting/new_party', 'HostingController@create')->name('hosting');
+//Creazione di un party
+Route::get('/hosting', 'HostingController@index')->name('hosting.index')->middleware('verified');
+
+Route::get('/hosting/create', 'HostingController@create')->name('hosting.create')->middleware('verified');
+
+Route::post('/hosting/store', 'HostingController@store')->name('hosting.store')->middleware('verified');

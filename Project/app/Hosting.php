@@ -8,7 +8,7 @@ class Hosting extends Model
 {
 
 
-    protected $fillable=["mod", "type","genre","open"];
+    protected $fillable=["user_id", "name", "mod", "type", "genre_id", "open"];
     public $timestamps=false;
 
     public function user( ){
@@ -18,7 +18,7 @@ class Hosting extends Model
         return $this->belongsTo("App\Genre");
     }
 
-public function enter( ){
+    public function enter( ){
         return $this->hasMany("App\Enter");
     }
 
