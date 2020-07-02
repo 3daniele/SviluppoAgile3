@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Hosting;
 use App\User;
-// use App\Genre;
+use App\Genre;
+
 class HostingController extends Controller
 {
     /**
@@ -44,10 +46,10 @@ class HostingController extends Controller
             'open'=>'required',
         ]);
         
-        //$a=Auth::user()->id;
+        $a=Auth::user()->id;
         
         $hosting = new Hosting([
-            'user_id'=>$request->get('user_id'),
+            'user_id'=>$a,
             'name'=> $request->get('name'),
             'genre_id'=>$request->get('genre'),
             'mod'=> $request->get('mod'),

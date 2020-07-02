@@ -18,17 +18,15 @@
           @csrf
 
           <div class="form-group">
-              <label for="Utente">Id utente:</label>
-              <input type="text" class="form-control" name="user_id">
-          </div>
-          <div class="form-group">
               <label for="NParty">Party Name</label>
               <input type="text" class="form-control" name="name">
           </div>
           <div class="form-group">
               <label for="SceltaGenere">Select genre</label>
                 <select class="form-control" name="genre">
-                   <option id="1" value="1">Rock</option>
+                @foreach(\App\Genre::all() as $genre)
+                    <option id="{{ $genre->id }}" value="{{ $genre->id }}">{{ $genre->name }}</option> 
+                @endforeach
             </select>
           </div>
           <div class="form-group">
