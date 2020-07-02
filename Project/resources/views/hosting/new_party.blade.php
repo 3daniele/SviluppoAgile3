@@ -30,7 +30,7 @@
             </select>
           </div>
           <div class="form-group">
-              <label>Mod</label>
+              <label>Mood</label>
               <input type="text" class="form-control" name="mod"/>
           </div>
           <div class="form-group">
@@ -48,7 +48,7 @@
             </select>
           </div>
                                  
-          <button type="submit" class="btn btn-primary-outline">Create</button>
+          <button type="submit" class="btn btn-outline-primary">Create</button>
       </form>
   </div>
 </div>

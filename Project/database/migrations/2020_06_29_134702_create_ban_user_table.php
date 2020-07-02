@@ -17,6 +17,7 @@ class CreateBanUserTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('hosting_id');
+            $table->string('why');
             $table->timestamps();
         });
     }
