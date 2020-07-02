@@ -29,3 +29,13 @@ Route::get('/hosting', 'HostingController@index')->name('hosting.index')->middle
 Route::get('/hosting/create', 'HostingController@create')->name('hosting.create')->middleware('verified');
 
 Route::post('/hosting/store', 'HostingController@store')->name('hosting.store')->middleware('verified');
+
+Route::patch('/hosting/update/{id}', 'HostingController@update')->name('hosting.update')->middleware('verified');
+
+Route::get('/hosting/edit/{id}', 'HostingController@edit')->name('hosting.edit')->middleware('verified');
+
+Route::delete('/hosting/delete/{id}', 'HostingController@destroy')->name('hosting.delete')->middleware('verified');
+
+Route::get('/hosting/edit', 'HostingController@show')->name('hosting.show')->middleware('verified');
+
+

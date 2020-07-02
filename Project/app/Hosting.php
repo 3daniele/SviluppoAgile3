@@ -25,4 +25,9 @@ class Hosting extends Model
     public function playlist( ){
         return $this->hasMany("App\Playlist");
     }
+
+    public function banUser( ){
+        return $this->hasMany("App\BanUser");
+    }
+
 }
