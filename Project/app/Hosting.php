@@ -8,7 +8,7 @@ class Hosting extends Model
 {
 
 
-    protected $fillable=["user_id", "name", "mod", "type", "genre_id", "open"];
+    protected $fillable=["user_id", "name", "mod", "type", "genre_id", "open","create_time","url"];
     public $timestamps=false;
 
     public function user( ){

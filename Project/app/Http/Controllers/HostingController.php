@@ -8,7 +8,8 @@ use Illuminate\Http\Request;
 use App\Hosting;
 use App\User;
 use App\Genre;
-
+use Carbon\Carbon;
+use Illuminate\Support\Str;
 class HostingController extends Controller
 {
     /**
@@ -51,6 +52,12 @@ class HostingController extends Controller
         ]);
         
         $a=Auth::user()->id;
+       
+        do{
+            $code = Str::random(16);
+            $url= "127.0.0.1:8000/hosting/show/".$code;
+        }
+        while(Hosting::where('url', '=', $url)->exists());
         
         $hosting = new Hosting([
             'user_id'=>$a,
@@ -58,7 +65,9 @@ class HostingController extends Controller
             'genre_id'=>$request->get('genre'),
             'mod'=> $request->get('mod'),
             'type'=> $request->get('type'),
-            'open'=> $request->get('open')
+            'open'=> $request->get('open'),
+            'url'=>$url,
+            'create_time' => Carbon::now()->toDateTimeString()
         ]);
 
         $hosting->save();
