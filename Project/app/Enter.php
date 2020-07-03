@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Enter extends Model
 {
-    protected $fillable = ['user_id','hosting_id'];
+    protected $fillable = ['user_id','hosting_id', 'created_at', 'updated_at'];
     public $timestamps = false;
 
     public function user() {

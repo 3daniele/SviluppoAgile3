@@ -53,6 +53,9 @@
                                     <a class="nav-link" href="{{ route('hosting.create') }}">Create new party</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="{{ route('enter.index') }}">Enter</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="{{ route('hosting.index') }}">History Party</a>
                         </li>
                            <li class="nav-item dropdown">
