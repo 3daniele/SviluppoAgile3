@@ -13,7 +13,7 @@ use App\User;
 class EnterController extends Controller
 {
     public function index() {
-        return view('enter.join');
+        return view('utente.join');
     }
     
     public function store(Request $request) {
@@ -44,6 +44,12 @@ class EnterController extends Controller
             'updated_at' => Carbon::now()
         ]);
         $enter->save();
+        
+        $hosting_type=Hosting::where('url',$url)->value('type');
+        if($hosting_type=="battle"){
+            return redirect('');//
+        }
+
         return redirect('dashboard'); 
     }
 
