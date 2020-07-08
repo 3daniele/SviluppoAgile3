@@ -71,7 +71,7 @@ class HostingController extends Controller
         ]);
 
         $hosting->save();
-        return redirect('/dashboard')->with('success', 'contact saved!');
+        return redirect('/partyhost')->with('success', 'party created!');
 
     }
 
