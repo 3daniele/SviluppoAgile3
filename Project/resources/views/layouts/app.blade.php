@@ -72,8 +72,11 @@
                             <a class="nav-link" href="{{ route('hosting.index') }}">History</a>
                         </li>
                         @endif
-                        
-                       
+                        @if(Route::is('enter.store'))
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('enter.exitP') }}">Exit</a>
+                        </li>
+                        @endif
                         <!--Logout dalla piattaforma-->
                            <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
