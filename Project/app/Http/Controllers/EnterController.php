@@ -36,6 +36,15 @@ class EnterController extends Controller
 
         //$hosting_id=Hosting::find($url)->get('id');
         $hosting_id=Hosting::where('url', $url)->value('id');
+        
+        //controlliamo se l'utente è già nella lista dei partecipanti
+        //Select *from(entrata) where (id_utente=utente AND hosting_id=hosting)
+        //se restituisce un valore diverso da null setto status su online e faccio il redirect altrimenti 
+        //memorizzo e faccio il redirect
+
+        $registrato=Enter::where('hosting_id',$hosting_id && 'user_id',$id)->first();
+
+        if($registrato==null){
         //store vera e propria
         $enter = new Enter([
             'user_id' => $id,
@@ -44,16 +53,26 @@ class EnterController extends Controller
             'updated_at' => Carbon::now()
         ]);
         $enter->save();
+        }else{
+            $registrato->status="online";
+            $registrato->save();
+        }
         
         $hosting_type=Hosting::where('url',$url)->value('type');
         if($hosting_type=="battle"){
-            return redirect('');//
+            return view('utente.partybattle', compact('hosting_id'));//
         }
-
-        return redirect('dashboard'); 
+        return view('utente.partydemocracy', compact('hosting_id')); 
     }
+    
 
-    public function exitP($id) {
+    public function exitP() {
+        $id=Auth::user()->id;
+        $online=Enter::where('status','online' && 'user_id',$id)->first();
 
+        $online->status="offline";
+        $online->save();
+        return redirect('dashboard')->with('success','Status update!');
+        
     }
 }

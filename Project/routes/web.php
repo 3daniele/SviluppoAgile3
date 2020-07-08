@@ -41,7 +41,7 @@ Route::get('/hosting/edit', 'HostingController@show')->name('hosting.show')->mid
 //Enters
 Route::get('/enters', 'EnterController@index')->name('enter.index')->middleware('verified');
 Route::post('/enters/store', 'EnterController@store')->name('enter.store')->middleware('verified');
-Route::delete('enters/delete/{id}', 'EnterController@exitP')->name('enter.exitP')->middleware('verifeid');
+Route::get('/enters/exit', 'EnterController@exitP')->name('enter.exitP')->middleware('verified');
 
 //Spotify
 Route::get('slogin','SpotifyAuthController@login')->name('slogin')->middleware('verified');
