@@ -94,9 +94,12 @@
                     @endauth
                 </div>
             @endif
-
+                
             <div class="content">
                 
+                <img src="foto/logo2.png" style="width:400px;height:400px;">
+                
+                <!--
                 <div class="manutenzione m-b-md">
                     Sito in costruzione
                 </div>
@@ -108,7 +111,7 @@
                 <div class="subtitle m-b-md">
                     Sviluppo AGILE
                 </div>
-
+                -->
                 <div class="links">
                     <a href="https://github.com/3daniele/SviluppoAgile3">GitHub</a>
                 </div>

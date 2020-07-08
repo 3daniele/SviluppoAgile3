@@ -23,7 +23,7 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
+                <a class="navbar-brand" href="{{ url('/dashboard') }}">
                     {{ config('app.name', 'Laravel') }}
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -49,33 +49,46 @@
                                 </li>
                             @endif
                         @else
+                        @if(!(Route::is('dashboard')))
                         <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('hosting.create') }}">Create new party</a>
+                            <a class="nav-link" href="{{ route('dashboard') }}">Home</a>
                         </li>
+                        @endif
+                        <!--Creazione di un party-->
+                        @if(!(Route::is('hosting.create')))
+                        <li class="nav-item">
+                                <a class="nav-link" href="{{ route('hosting.create') }}">Create</a>
+                        </li>
+                        @endif
+                        <!--Entrata nel party-->
+                        @if(!(Route::is('enter.index')))
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('enter.index') }}">Enter</a>
                         </li>
+                        @endif
+                        <!--Storico party-->
+                        @if(!(Route::is('hosting.index')))
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('hosting.index') }}">History Party</a>
+                            <a class="nav-link" href="{{ route('hosting.index') }}">History</a>
                         </li>
-
-                        <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    Spotify <span class="caret"></span>
-                                </a>
-                           
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('slogin') }}">Login</a>
-                                    <a class="dropdown-item" href="{{ route('slogout') }}">Logout</a>
-                                </div>
-                        </li>
-
+                        @endif
+                        
+                       
+                        <!--Logout dalla piattaforma-->
                            <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->username }} <span class="caret"></span>
                                 </a>
                            
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <!--Logout e login spotify-->
+                                    @if(Route::is('dashboard'))
+                                    @if(Auth::user()->stoken==null)
+                                    <a class="dropdown-item" href="{{ route('slogin') }}">Spotify Login</a>
+                                    @else
+                                    <a class="dropdown-item" href="{{ route('slogout') }}">Spotify Logout</a>
+                                    @endif
+                                    @endif
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
