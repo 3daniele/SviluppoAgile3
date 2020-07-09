@@ -8,14 +8,10 @@
                     WELCOME in <br>
                     <?php
                         $name= DB::table('Hostings')->
-                            where('id',$hosting)->value('name');
+                            where('id',$hosting->id)->value('name');
                         
-                        echo $name."amministratore"
+                        echo $name
                     ?>
-                </div>
-
-                <div class="links">
-                    <a href="https://github.com/3daniele/SviluppoAgile3">GitHub</a>
                 </div>
         </div>
     </div>
