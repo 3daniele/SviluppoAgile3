@@ -36,7 +36,7 @@ Route::get('/hosting/edit/{id}', 'HostingController@edit')->name('hosting.edit')
 
 Route::delete('/hosting/delete/{id}', 'HostingController@destroy')->name('hosting.delete')->middleware('verified');
 
-Route::get('/hosting/edit', 'HostingController@show')->name('hosting.show')->middleware('verified');
+Route::get('/hosting/hostview/{id}', 'HostingController@show')->name('hosting.show')->middleware('verified');
 
 //Enters
 Route::get('/enters', 'EnterController@index')->name('enter.index')->middleware('verified');
