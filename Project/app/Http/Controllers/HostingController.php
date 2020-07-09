@@ -71,22 +71,12 @@ class HostingController extends Controller
         ]);
 
         $hosting->save();
+        
         if($hosting->type=="battle"){
-            return redirect('hosting.show'.$hosting->id, compact('hosting'));//
+            return view('host.partybattle', compact('hosting'));
         }
-        return redirect('hosting.show'.$hosting->id, compact('hosting'));
+        return view('host.partydemocracy', compact('hosting'));
     }
-
-      /**
-      * Display all the resource associated for the user. 
-      *
-      * @return \Illuminate\Http\Response
-      */
-
-      public function showall(){
-        $hosting=null;
-      }
-
 
      /**
       * Display the specified resource. 
