@@ -71,8 +71,10 @@ class HostingController extends Controller
         ]);
 
         $hosting->save();
-        return redirect('/partyhost')->with('success', 'party created!');
-
+        if($hosting->type=="battle"){
+            return redirect('hosting.show'.$hosting->id, compact('hosting'));//
+        }
+        return redirect('hosting.show'.$hosting->id, compact('hosting'));
     }
 
       /**
@@ -94,7 +96,22 @@ class HostingController extends Controller
       */
 
       public function show($id){
-        $hosting= null;
+        $user=Auth::user()->id;
+        if (Hosting::where('id', $id)->exists()) {
+            $hosting = Hosting::find($id);
+            if ($hosting->user_id == $user) {
+                if($hosting->type=="battle"){
+                    return view('host.partybattle', compact('hosting'));//
+                }
+                return view('host.partydemocracy', compact('hosting'));
+            } 
+            else {
+                return redirect('/dashboard')->with('error','Non è il tuo party!');
+            }
+}
+else {
+    return redirect('/dashboard')->with('error','Il party non esiste, sorry!');
+}
       }
 
       /**
