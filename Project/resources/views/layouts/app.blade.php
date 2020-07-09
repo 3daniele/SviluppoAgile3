@@ -77,6 +77,21 @@
                             <a class="nav-link" href="{{ route('enter.exitP') }}">Exit</a>
                         </li>
                         @endif
+                        <!--Chiusura party-->
+                        @if(Route::is('hosting.store'))
+                        <li class="nav-item">
+                            
+                            
+                            <a class="nav-link" href=<?php 
+                                $utente=Auth::user()->id;
+                                $party=DB::table('hostings')->where([['user_id', $utente], ['online', 'yes']])->value('id');   
+                                $a="/";
+                                $path=$a."hosting".$a."close".$a.$party;
+                                echo $path;
+                            ?>>Close</a>
+                        </li>
+                        @endif
+
                         <!--Logout dalla piattaforma-->
                            <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
