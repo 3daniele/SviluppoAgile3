@@ -38,6 +38,8 @@ Route::delete('/hosting/delete/{id}', 'HostingController@destroy')->name('hostin
 
 Route::get('/hosting/hostview/{id}', 'HostingController@show')->name('hosting.show')->middleware('verified');
 
+Route::get('/hosting/close/{id}', 'HostingController@close')->name('hosting.close')->middleware('verified');
+
 //Enters
 Route::get('/enters', 'EnterController@index')->name('enter.index')->middleware('verified');
 Route::post('/enters/store', 'EnterController@store')->name('enter.store')->middleware('verified');

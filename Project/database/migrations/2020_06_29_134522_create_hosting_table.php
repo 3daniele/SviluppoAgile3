@@ -21,6 +21,7 @@ class CreateHostingTable extends Migration
             $table->string('mod');
             $table->enum('type',['battle','democracy']);
             $table->enum('open',['yes','no']);
+            $table->enum('online',['yes','no'])->default('yes');
             $table->timestamp('create_time');
             $table->string('url');
 

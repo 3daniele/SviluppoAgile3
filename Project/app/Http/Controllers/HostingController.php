@@ -5,11 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\support\Facades\DB;
 use Illuminate\Http\Request;
-use App\Hosting;
-use App\User;
-use App\Genre;
-use Carbon\Carbon;
 use Illuminate\Support\Str;
+use Carbon\Carbon;
+use App\Hosting;
+use App\Genre;
+use App\Enter;
+use App\User;
+
+
 class HostingController extends Controller
 {
     /**
@@ -98,10 +101,10 @@ class HostingController extends Controller
             else {
                 return redirect('/dashboard')->with('error','Non è il tuo party!');
             }
-}
-else {
-    return redirect('/dashboard')->with('error','Il party non esiste, sorry!');
-}
+            }
+            else {
+            return redirect('/dashboard')->with('error','Il party non esiste, sorry!');
+        }
       }
 
       /**
@@ -147,11 +150,25 @@ else {
         *
         * @param  int  $id
         * @return \Illuminate\Http\Response
-        */
+        */ 
         
         public function destroy($id){
             $k=Hosting::find($id);
             $k->delete();
             return redirect('/hosting')->with('success','Party deleted!');
+        }
+        
+        public function close($id){
+            //chiudiamo il party
+            $h=Hosting::find($id);
+            $h->online='no';
+            $h->save();
+            //settiamo lo stato di tutti gli utenti che sono entrati nel party ad offline
+            $enters = Enter::where('hosting_id', $id)->get();
+            foreach($enters as $enter) {
+                $enter->status = 'offline';
+                $enter->save();
+            }
+            return view('/dashboard');
         }
 }
