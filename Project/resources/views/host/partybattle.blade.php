@@ -12,8 +12,14 @@
                         
                         echo $name
                     ?>
+                    <span class="d-none" id="token">{{Auth::user()->stoken}}</span>
+                    </br>
+                    </br>
+                    <button type="button" class="btn btn-primary" id="play">Riproduci</button>
                 </div>
         </div>
     </div>
 </div>
+<script src="https://sdk.scdn.co/spotify-player.js" defer></script>
+<script src="/js/playerhost.js"></script>
 @endsection
