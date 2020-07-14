@@ -49,3 +49,6 @@ Route::get('/enters/exit', 'EnterController@exitP')->name('enter.exitP')->middle
 Route::get('slogin','SpotifyAuthController@login')->name('slogin')->middleware('verified');
 Route::get('callback', 'SpotifyAuthController@getAuthCode')->name('callback')->middleware('verified');
 Route::get('slogout','SpotifyAuthController@logout')->name('slogout')->middleware('verified');
+
+//Music
+Route::post('hosting/{id}/musics', 'MusicController@addMusic')->name('music.add')->middleware('verified');
