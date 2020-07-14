@@ -22,5 +22,16 @@ class InsertAdmin extends Seeder
         );
 
         DB::table('users')->insert($user);
+
+        $domenico = array(
+            'username' => 'domenico',
+            'email' => 'domenico597@live.it',
+            'password' => '$2y$10$zJQ27n4GzjU.AIIVGZNCo.8h3CAtgQYcEsYABvBHM8M2hgMTN6eDa',
+            'email_verified_at' => Carbon::now(),
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        );
+
+        DB::table('users')->insert($domenico);
     }
 }

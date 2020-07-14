@@ -6,7 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Music extends Model
 {
-    protected $fillable = ['url','votes','active'];
+    protected $table = 'Musics';
+    protected $fillable = ['uri','votes','active'];
     public $timestamps = false;
 
     public function playlist( ){

@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Genre;
+use App\Playlist;
 
-class GenreController extends Controller
+class PlaylistController extends Controller
 {
     /**
      * Display a listing of the resource.

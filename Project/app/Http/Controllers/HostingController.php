@@ -94,15 +94,15 @@ class HostingController extends Controller
             $hosting = Hosting::find($id);
             if ($hosting->user_id == $user) {
                 if($hosting->type=="battle"){
-                    return view('host.partybattle', compact('hosting'));//
+                    return view('host.partybattle', compact('hosting'));
                 }
                 return view('host.partydemocracy', compact('hosting'));
             } 
             else {
                 return redirect('/dashboard')->with('error','Non è il tuo party!');
             }
-            }
-            else {
+        }
+        else {
             return redirect('/dashboard')->with('error','Il party non esiste, sorry!');
         }
       }

@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Genre;
+use App\Music;
 
-class GenreController extends Controller
+class MusicController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -81,5 +81,26 @@ class GenreController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function addMusic(Request $request, $id) {
+
+        if (!(Music::where('uri', $request->uri)->exists())) {
+            $music = new Music;
+            $music->uri = $request->uri;
+            $music->save();
+        }
+        
+        /*
+        $hosting = Hosting::where('id', $id)->first();
+        $user = Auth::user()->id;
+
+        if ($hosting->user == $user) {
+
+        }
+        else {
+            return redirect('/dashboard')->with('error','Non è il tuo party!');
+        }
+        */
     }
 }

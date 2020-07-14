@@ -15,9 +15,9 @@ class CreateMusicTable extends Migration
     {
         Schema::create('musics', function (Blueprint $table) {
             $table->id();
-            $table->string('url');
-            $table->bigInteger('votes');
-            $table->enum('active',['yes','no'])->default('no');
+            $table->string('uri');
+            $table->bigInteger('votes')->default(0);
+            // $table->enum('active',['yes','no'])->default('no');
         });
     }
 
