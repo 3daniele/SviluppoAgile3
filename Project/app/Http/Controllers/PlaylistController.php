@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Playlist;
+use App\Music;
 
 class PlaylistController extends Controller
 {
@@ -82,4 +83,17 @@ class PlaylistController extends Controller
     {
         //
     }
+
+    public function addMusicToPlaylist(Request $request, $id) {
+    
+        $musicId=Music::where('uri', $request->uri)->value('id');
+    
+        if (!(Playlist::where([['music_id', $musicId],["hosting_id",$id]])->exists())) {
+            $playlist=new Playlist;
+            $playlist->hosting_id=$id;
+            $playlist->music_id=$musicId;
+            $playlist->save();
+        }  
+    }
+
 }
