@@ -1,6 +1,16 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\app",
+    "\\app\\Http",
+    "\\app\\Http\\Controllers",
+    "\\config",
+    "\\database\\migrations",
+    "\\public",
+    "\\resources",
+    "\\resources\\views",
+    "\\routes"
   ],
+  "SelectedNode": "\\config\\hashing.php",
   "PreviewInSolutionExplorer": false
 }
