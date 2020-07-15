@@ -80,12 +80,12 @@ class PlaylistController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {
-        //
+    {            
+            //
     }
 
     public function addMusicToPlaylist(Request $request, $id) {
-    
+         
         $musicId=Music::where('uri', $request->uri)->value('id');
     
         if (!(Playlist::where([['music_id', $musicId],["hosting_id",$id]])->exists())) {
