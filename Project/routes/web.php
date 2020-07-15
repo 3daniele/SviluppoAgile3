@@ -52,3 +52,6 @@ Route::get('slogout','SpotifyAuthController@logout')->name('slogout')->middlewar
 
 //Music
 Route::post('hosting/{id}/musics', 'MusicController@addMusic')->name('music.add')->middleware('verified');
+
+//Playlist
+Route::post('hosting/{id}/playlist', 'PlaylistController@addMusicToPlaylist')->name('playlist.add')->middleware('verified');

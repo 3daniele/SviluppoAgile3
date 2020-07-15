@@ -145,7 +145,24 @@ window.onSpotifyWebPlaybackSDKReady = () => {
                 console.log(error, 'error on item to add');
             }
         })
-        
+
+        $.ajax({
+            url: `/hosting/${hosting_id}/playlist`,
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: {
+                'uri': track_uri
+            },
+            dataType: 'json',
+            success: function (response) {
+                console.log(response);
+            },
+            error: function (error) {
+                console.log(error, 'error on item to add');
+            }
+        })
     })
 
 
