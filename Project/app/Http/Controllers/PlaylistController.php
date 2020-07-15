@@ -81,7 +81,7 @@ class PlaylistController extends Controller
      */
     public function destroy($id)
     {        
-        //
+            //
     }
 
     public function addMusicToPlaylist(Request $request, $id) {
