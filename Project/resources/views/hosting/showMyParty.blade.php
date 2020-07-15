@@ -10,6 +10,7 @@
               <td>Number</td>
               <td>Date</td>
               <td>Name</td>
+              <td>Type</td>
               <td colspan = 2>Actions</td>
             </tr>
         </thead>
@@ -25,6 +26,10 @@
                     ?></td>
                 <td>{{$a->create_time}}</td>
                 <td>{{$a->name}}</td>
+                <td>{{$a->type}}</td>
+                <td>
+                    <a href="{{ route('hosting.show',$a->id)}}" class="btn btn-primary">View</a>
+                </td>
                 <td>
                     <a href="{{ route('hosting.edit',$a->id)}}" class="btn btn-primary">Edit</a>
                 </td>
