@@ -117,7 +117,7 @@ window.onSpotifyWebPlaybackSDKReady = () => {
 
 
 
-    /* AGGIUNGERE LA CANZONE ALLE TRACKS DI UN PARTY */
+    /*----------------------- AGGIUNTA DI UNA CANZONE ALLA PLAYLIST --------------------*/
     $(document).on("click", ".item", function (event) {
         event.preventDefault();
         // console.log(this);
@@ -184,6 +184,26 @@ window.onSpotifyWebPlaybackSDKReady = () => {
                 "uris": ['spotify:track:55Vhi9cbTaYQZqNNIoYKVU','spotify:track:7fFPmEGThYNhAVocfS5T4B', 'spotify:track:60a0Rd6pjrkxjPbaKzXjfq',
                          'spotify:track:2P1abyEFYChujx9QzcDyUB', 'spotify:track:6Ekvlxtfm7IA6GCH1oL7ws',
                          'spotify:track:2nLtzopw4rPReszdYBJU6h'],
+            },
+            dataType: 'json'
+        }).then(function (data) {
+        });
+    });
+
+
+    /*----------------------- RIPRESA DI UNA CANZONE --------------------*/
+    $("#resume").click(function (event) {
+        event.preventDefault();
+        var instance = axios.create();
+        delete instance.defaults.headers.common['X-CSRF-TOKEN'];
+    
+        instance({
+            url: "https://api.spotify.com/v1/me/player/play?device_id=" + deviceId,
+            method: 'PUT',
+            headers: {
+                'Authorization': 'Bearer ' + token,
+            },
+            data: {
             },
             dataType: 'json'
         }).then(function (data) {
