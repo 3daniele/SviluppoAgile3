@@ -45,7 +45,7 @@ class CreateForeignkeyTable extends Migration
                 ->on('hostings')->onDelete('cascade'); });
 
         Schema::table('playlists', function(Blueprint $table0) {
-            $table0->foreign('music_id')->references('id')
+            $table0->foreign('music_id')->references('uri')
                 ->on('musics')->onDelete('cascade'); });
     }
 
