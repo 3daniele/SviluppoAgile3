@@ -88,6 +88,9 @@ class MusicController extends Controller
         if (!(Music::where('uri', $request->uri)->exists())) {
             $music = new Music;
             $music->uri = $request->uri;
+            $music->artists = $request->artists;
+            $music->name = $request->name;
+            $music->duration = $request->duration;
             $music->save();
         }
         

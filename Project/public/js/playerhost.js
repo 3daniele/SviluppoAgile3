@@ -96,9 +96,11 @@ window.onSpotifyWebPlaybackSDKReady = () => {
                         content.children('div').last().children().last().text(element.album.name)
 
                         item.attr('data-id', element.id);
-                        item.attr('data-uri', element.uri)
-                        item.attr('data-duration', element.duration_ms)
-                        item.attr('data-number', index)
+                        item.attr('data-uri', element.uri);
+                        item.attr('data-artists', artists);
+                        item.attr('data-name', element.name);
+                        item.attr('data-duration', millisToMinutesAndSeconds(element.duration_ms));
+                        item.attr('data-number', index);
                         item.addClass('item');
                         item.removeAttr('id');
                         result.append(item).hide().fadeIn();
@@ -120,11 +122,13 @@ window.onSpotifyWebPlaybackSDKReady = () => {
     /*----------------------- AGGIUNTA DI UNA CANZONE ALLA PLAYLIST --------------------*/
     $(document).on("click", ".item", function (event) {
         event.preventDefault();
-        // console.log(this);
+        console.log(this);
         let track_uri = $(this).data('uri');
         // console.log(track_uri);
-        let track_id = $(this).data('id');
-        
+        let artists = $(this).data('artists');
+        let name = $(this).data('name');
+        let duration = $(this).data('duration');
+
         var instance = axios.create();
         delete instance.defaults.headers.common['X-CSRF-TOKEN'];
         
@@ -135,7 +139,10 @@ window.onSpotifyWebPlaybackSDKReady = () => {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             data: {
-                'uri': track_uri
+                'uri': track_uri,
+                'artists' : artists,
+                'name': name,
+                'duration': duration
             },
             dataType: 'json',
             success: function (response) {
@@ -168,9 +175,21 @@ window.onSpotifyWebPlaybackSDKReady = () => {
 
     /*-----------------------------Asdrubale--------------------------------- */
     
-    /*----------------------- RIPRODUZIONE DI UNA CANZONE --------------------*/
+    /*----------------------- RIPRODUZIONE DI UNA PLAYLIST --------------------*/
     $("#play").click(function (event) {
         event.preventDefault();
+        
+        var playlist = JSON.parse($("#playlist").text());
+        console.log(playlist);
+    
+        var uris = new Array();
+    
+        for (i in playlist) {
+            // console.log(playlist[i].music_id);
+            uris.push(playlist[i].music_id);
+            console.log(uris[i]);
+        }
+        
         var instance = axios.create();
         delete instance.defaults.headers.common['X-CSRF-TOKEN'];
     
@@ -181,9 +200,7 @@ window.onSpotifyWebPlaybackSDKReady = () => {
                 'Authorization': 'Bearer ' + token,
             },
             data: {
-                "uris": ['spotify:track:55Vhi9cbTaYQZqNNIoYKVU','spotify:track:7fFPmEGThYNhAVocfS5T4B', 'spotify:track:60a0Rd6pjrkxjPbaKzXjfq',
-                         'spotify:track:2P1abyEFYChujx9QzcDyUB', 'spotify:track:6Ekvlxtfm7IA6GCH1oL7ws',
-                         'spotify:track:2nLtzopw4rPReszdYBJU6h'],
+                "uris": uris
             },
             dataType: 'json'
         }).then(function (data) {
@@ -260,5 +277,26 @@ window.onSpotifyWebPlaybackSDKReady = () => {
             dataType: 'json'
         }).then(function (data) {
         });
-    });   
+    });
+
+    /*----------------------- CAMBIO DEL VOLUME --------------------*/
+    $("#setVolume").on('input change', function (event) {
+        event.preventDefault();
+        
+        var volume = document.getElementById("setVolume").value;
+        console.log(volume);
+        
+        var instance = axios.create();
+        delete instance.defaults.headers.common['X-CSRF-TOKEN'];
+    
+        instance({
+            url: "    https://api.spotify.com/v1/me/player/volume?volume_percent=" + volume + "&device_id=" + deviceId,
+            method: 'PUT',
+            headers: {
+                'Authorization': 'Bearer ' + token,
+            },
+            dataType: 'json'
+        }).then(function (data) {
+        });
+    });
 };

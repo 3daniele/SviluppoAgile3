@@ -13,18 +13,12 @@
                 ?>
                 <span class="d-none" id="token">{{Auth::user()->stoken}}</span>
                 <span class="d-none" id="hosting_id">{{$hosting->id}}</span>
-                </br>
-                </br>
-                <button type="button" class="btn btn-primary" id="previous">Previous</button>
-                <button type="button" class="btn btn-primary" id="play">Play</button>
-                <button type="button" class="btn btn-primary" id="resume">Resume</button>
-                <button type="button" class="btn btn-primary" id="pause">Pause</button>
-                <button type="button" class="btn btn-primary" id="next">Next</button>
+                <span class="d-none" id="playlist">{{$playlist}}</span>
 
                 <!-- Single Widget Area -->
                 <div class="single-widget-area search-widget-area mb-1 mt-3">
                   <form action="" method="" autocomplete="off">
-                    <input id="searchSong" type="search" name="search" class="form-control" placeholder="Search here to add songs ...">
+                    <input id="searchSong" type="search" name="search" class="form-control" placeholder="Search for a song to add to the playlist...">
                   </form>
 
                   <div class="d-none">
@@ -48,6 +42,32 @@
                   </div>
                   <div id="result"></div>
                 </div>
+
+                <!--Tabella playlist-->
+                <table class="table">
+                  <thead class="thead-dark">
+                    <tr>
+                      <th scope="col">Artists Names</th>
+                      <th scope="col">Song Name</th>
+                      <th scope="col">Duration</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  @foreach(\App\Playlist::where('hosting_id', $hosting->id)->get() as $music)
+                      <tr>
+                        <td>{{ \App\Music::where('uri', $music->music_id)->value('artists') }}</td>
+                        <td>{{ \App\Music::where('uri', $music->music_id)->value('name') }}</td>
+                        <td>{{ \App\Music::where('uri', $music->music_id)->value('duration') }}</td>
+                      </tr> 
+                  @endforeach
+                </tbody>
+                </table>
+                <button type="button" class="btn btn-primary" id="previous">Previous</button>
+                <button type="button" class="btn btn-primary" id="play">Play</button>
+                <button type="button" class="btn btn-primary" id="resume">Resume</button>
+                <button type="button" class="btn btn-primary" id="pause">Pause</button>
+                <button type="button" class="btn btn-primary" id="next">Next</button>
+                <input type="range" min="0" max="100" value="100" class="slider" id="setVolume">
             </div>
         </div>
     </div>

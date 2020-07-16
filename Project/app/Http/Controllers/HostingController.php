@@ -7,6 +7,7 @@ use Illuminate\support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
+use App\Playlist;
 use App\Hosting;
 use App\Genre;
 use App\Enter;
@@ -75,10 +76,13 @@ class HostingController extends Controller
 
         $hosting->save();
         
+        return view('dashboard');
+        /*
         if($hosting->type=="battle"){
             return view('host.partybattle', compact('hosting'));
         }
         return view('host.partydemocracy', compact('hosting'));
+        */
     }
 
      /**
@@ -88,15 +92,18 @@ class HostingController extends Controller
       * @return \Illuminate\Http\Response
       */
 
-      public function show($id){
+      public function show($id) {
+        
         $user=Auth::user()->id;
+        $playlist = Playlist::where('hosting_id', $id)->get()->toJson();
+
         if (Hosting::where('id', $id)->exists()) {
             $hosting = Hosting::find($id);
             if ($hosting->user_id == $user) {
                 if($hosting->type=="battle"){
-                    return view('host.partybattle', compact('hosting'));
+                    return view('host.partybattle', compact('hosting', 'playlist'));
                 }
-                return view('host.partydemocracy', compact('hosting'));
+                return view('host.partydemocracy', compact('hosting', 'playlist'));
             } 
             else {
                 return redirect('/dashboard')->with('error','Non è il tuo party!');
