@@ -15,8 +15,11 @@
                 <span class="d-none" id="hosting_id">{{$hosting->id}}</span>
                 </br>
                 </br>
-                <button type="button" class="btn btn-primary" id="play">Riproduci</button>
-                
+                <button type="button" class="btn btn-primary" id="next">Next</button>
+                <button type="button" class="btn btn-primary" id="play">Play</button>
+                <button type="button" class="btn btn-primary" id="pause">Stop</button>
+                <button type="button" class="btn btn-primary" id="previous">Previous</button>
+
                 <!-- Single Widget Area -->
                 <div class="single-widget-area search-widget-area mb-1 mt-3">
                   <form action="" method="" autocomplete="off">

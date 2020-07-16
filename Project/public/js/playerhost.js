@@ -1,10 +1,10 @@
 window.onSpotifyWebPlaybackSDKReady = () => {
     
     const hosting_id = $("#hosting_id").text();
-    console.log(hosting_id);
+    // console.log(hosting_id);
 
     const token = $("#token").text();
-    console.log(token);
+    // console.log(token);
     
     const player = new Spotify.Player({
       name: 'Web Playback SDK Quick Start Player',
@@ -120,9 +120,9 @@ window.onSpotifyWebPlaybackSDKReady = () => {
     /* AGGIUNGERE LA CANZONE ALLE TRACKS DI UN PARTY */
     $(document).on("click", ".item", function (event) {
         event.preventDefault();
-        console.log(this);
+        // console.log(this);
         let track_uri = $(this).data('uri');
-        console.log(track_uri);
+        // console.log(track_uri);
         let track_id = $(this).data('id');
         
         var instance = axios.create();
@@ -166,7 +166,7 @@ window.onSpotifyWebPlaybackSDKReady = () => {
     })
 
 
-
+    /*-----------------------------Asdrubale--------------------------------- */
     
     /*----------------------- RIPRODUZIONE DI UNA CANZONE --------------------*/
     $("#play").click(function (event) {
@@ -181,14 +181,64 @@ window.onSpotifyWebPlaybackSDKReady = () => {
                 'Authorization': 'Bearer ' + token,
             },
             data: {
-                "uris": ['spotify:track:60a0Rd6pjrkxjPbaKzXjfq'],
-                "offset": {
-                    "uri": 'spotify:track:60a0Rd6pjrkxjPbaKzXjfq',
-                },
-                "position_ms": 0
+                "uris": ['spotify:track:55Vhi9cbTaYQZqNNIoYKVU','spotify:track:7fFPmEGThYNhAVocfS5T4B', 'spotify:track:60a0Rd6pjrkxjPbaKzXjfq',
+                         'spotify:track:2P1abyEFYChujx9QzcDyUB', 'spotify:track:6Ekvlxtfm7IA6GCH1oL7ws',
+                         'spotify:track:2nLtzopw4rPReszdYBJU6h'],
             },
             dataType: 'json'
         }).then(function (data) {
         });
     });
+
+
+    /*----------------------- PAUSA DI UNA CANZONE --------------------*/
+    $("#pause").click(function (event) {
+        event.preventDefault();
+        var instance = axios.create();
+        delete instance.defaults.headers.common['X-CSRF-TOKEN'];
+    
+        instance({
+            url: "https://api.spotify.com/v1/me/player/pause?device_id=" + deviceId,
+            method: 'PUT',
+            headers: {
+                'Authorization': 'Bearer ' + token,
+            },
+            dataType: 'json'
+        }).then(function (data) {
+        });
+    });
+
+    /*----------------------- PROSSIMA CANZONE --------------------*/
+    $("#next").click(function (event) {
+        event.preventDefault();
+        var instance = axios.create();
+        delete instance.defaults.headers.common['X-CSRF-TOKEN'];
+    
+        instance({
+            url: "https://api.spotify.com/v1/me/player/next?device_id=" + deviceId,
+            method: 'POST',
+            headers: {
+                'Authorization': 'Bearer ' + token,
+            },
+            dataType: 'json'
+        }).then(function (data) {
+        });
+    });
+    
+    /*----------------------- CANZONE PRECEDENTE --------------------*/
+    $("#previous").click(function (event) {
+        event.preventDefault();
+        var instance = axios.create();
+        delete instance.defaults.headers.common['X-CSRF-TOKEN'];
+    
+        instance({
+            url: "https://api.spotify.com/v1/me/player/previous?device_id=" + deviceId,
+            method: 'POST',
+            headers: {
+                'Authorization': 'Bearer ' + token,
+            },
+            dataType: 'json'
+        }).then(function (data) {
+        });
+    });   
 };
