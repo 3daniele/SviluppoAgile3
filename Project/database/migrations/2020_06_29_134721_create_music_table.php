@@ -17,6 +17,7 @@ class CreateMusicTable extends Migration
             $table->id();
             $table->string('uri');
             $table->bigInteger('votes')->default(0);
+            $table->unique('uri');
             // $table->enum('active',['yes','no'])->default('no');
         });
     }
