@@ -85,13 +85,11 @@ class PlaylistController extends Controller
     }
 
     public function addMusicToPlaylist(Request $request, $id) {
-         
-        $musicId=Music::where('uri', $request->uri)->value('id');
     
-        if (!(Playlist::where([['music_id', $musicId],["hosting_id",$id]])->exists())) {
+        if (!(Playlist::where([['music_id', $request->uri],["hosting_id",$id]])->exists())) {
             $playlist=new Playlist;
             $playlist->hosting_id=$id;
-            $playlist->music_id=$musicId;
+            $playlist->music_id=$request->uri;
             $playlist->save();
         }  
     }
