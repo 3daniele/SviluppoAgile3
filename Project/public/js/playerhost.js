@@ -93,7 +93,7 @@ window.onSpotifyWebPlaybackSDKReady = () => {
                         });
 
                         content.children('div').last().children().first().text(artists);
-                        content.children('div').last().children().last().text(element.album.name)
+                        content.children('div').last().children().last().text(element.album.name);
 
                         item.attr('data-id', element.id);
                         item.attr('data-uri', element.uri);
@@ -122,9 +122,9 @@ window.onSpotifyWebPlaybackSDKReady = () => {
     /*----------------------- AGGIUNTA DI UNA CANZONE ALLA PLAYLIST --------------------*/
     $(document).on("click", ".item", function (event) {
         event.preventDefault();
-        console.log(this);
+        //console.log(this);
         let track_uri = $(this).data('uri');
-        // console.log(track_uri);
+        //console.log(track_uri);
         let artists = $(this).data('artists');
         let name = $(this).data('name');
         let duration = $(this).data('duration');
@@ -151,7 +151,7 @@ window.onSpotifyWebPlaybackSDKReady = () => {
             error: function (error) {
                 console.log(error, 'error on item to add');
             }
-        })
+        });
 
         $.ajax({
             url: `/hosting/${hosting_id}/playlist`,
@@ -169,8 +169,8 @@ window.onSpotifyWebPlaybackSDKReady = () => {
             error: function (error) {
                 console.log(error, 'error on item to add');
             }
-        })
-    })
+        });
+    });
 
 
     /*-----------------------------Asdrubale--------------------------------- */
@@ -180,14 +180,14 @@ window.onSpotifyWebPlaybackSDKReady = () => {
         event.preventDefault();
         
         var playlist = JSON.parse($("#playlist").text());
-        console.log(playlist);
+        //console.log(playlist);
     
         var uris = new Array();
     
         for (i in playlist) {
             // console.log(playlist[i].music_id);
             uris.push(playlist[i].music_id);
-            console.log(uris[i]);
+            //console.log(uris[i]);
         }
         
         var instance = axios.create();
@@ -203,7 +203,26 @@ window.onSpotifyWebPlaybackSDKReady = () => {
                 "uris": uris
             },
             dataType: 'json'
-        }).then(function (data) {
+        }).then(function (data) {    
+            instance({
+                url: "https://api.spotify.com/v1/me/player/currently-playing",
+                method: 'GET',
+                headers: {
+                    'Authorization': 'Bearer ' + token,
+                },
+                dataType: 'json'
+            }).then(function (data) {
+                var current = data.data.item.uri;
+                console.log(current);
+                var music = JSON.parse($("#music").text());
+                console.log(music);
+                for (i in music) {
+                    //console.log(music[i]);
+                    if (current == music[i].music_id) {
+                        $("<td class="+"now"+">now playing</td>").insertAfter( "."+i );
+                    }
+                }
+            });
         });
     });
 
@@ -259,6 +278,26 @@ window.onSpotifyWebPlaybackSDKReady = () => {
             },
             dataType: 'json'
         }).then(function (data) {
+            instance({
+                url: "https://api.spotify.com/v1/me/player/currently-playing",
+                method: 'GET',
+                headers: {
+                    'Authorization': 'Bearer ' + token,
+                },
+                dataType: 'json'
+            }).then(function (data) {
+                var current = data.data.item.uri;
+                console.log(current);
+                var music = JSON.parse($("#music").text());
+                console.log(music);
+                for (i in music) {
+                    //console.log(music[i]);
+                    if (current == music[i].music_id) {
+                        $(".now").remove();
+                        $("<td class="+"now"+">now playing</td>").insertAfter( "."+i );
+                    }
+                }
+            });
         });
     });
     
@@ -276,6 +315,26 @@ window.onSpotifyWebPlaybackSDKReady = () => {
             },
             dataType: 'json'
         }).then(function (data) {
+            instance({
+                url: "https://api.spotify.com/v1/me/player/currently-playing",
+                method: 'GET',
+                headers: {
+                    'Authorization': 'Bearer ' + token,
+                },
+                dataType: 'json'
+            }).then(function (data) {
+                var current = data.data.item.uri;
+                console.log(current);
+                var music = JSON.parse($("#music").text());
+                console.log(music);
+                for (i in music) {
+                    //console.log(music[i]);
+                    if (current == music[i].music_id) {
+                        $(".now").remove();
+                        $("<td class="+"now"+">now playing</td>").insertAfter( "."+i );
+                    }
+                }
+            });
         });
     });
 
