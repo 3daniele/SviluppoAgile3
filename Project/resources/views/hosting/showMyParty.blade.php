@@ -47,6 +47,38 @@
             @endforeach
         </tbody>
       </table>
+
+
+      <table class="table table-striped">
+        <thead>
+            <tr>
+              <td>Number</td>
+              <td>Name</td>
+              <td>Status</td>
+              <td colspan = 2>Actions</td>
+            </tr>
+        </thead>
+        <tbody>
+                <?php
+                    $count=1;    
+                ?>            
+            @foreach($p as $a)
+            <tr>
+                <td><?php
+                        echo $count;    
+                    ?></td>
+                <td>{{\App\Hosting::where('id', $a->hosting_id)->value('name')}}</td>
+                <td>{{$a->status}}</td>
+                <td>
+                    <a href="{{ route('user.show',$a->hosting_id)}}" class="btn btn-primary">View</a>
+                </td>
+            </tr>
+            <?php
+                $count++;    
+            ?>
+            @endforeach
+        </tbody>
+      </table>
     <div>
     </div>
     @endsection

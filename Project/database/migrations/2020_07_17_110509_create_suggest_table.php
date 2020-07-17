@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePlaylistTable extends Migration
+class CreateSuggestTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,13 @@ class CreatePlaylistTable extends Migration
      */
     public function up()
     {
-        Schema::create('playlists', function (Blueprint $table) {
+        Schema::create('suggests', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('hosting_id');
+            $table->unsignedBigInteger('user_id');
             $table->string('music_id');
-            $table->unsignedBigInteger('votes')->default(0);
+            $table->enum('status',['on','off'])->default('off');
+            $table->timestamps();
         });
     }
 
@@ -28,6 +30,6 @@ class CreatePlaylistTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('playlist');
+        Schema::dropIfExists('suggest');
     }
 }

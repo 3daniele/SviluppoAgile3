@@ -18,7 +18,7 @@
           @csrf
 
           <div class="form-group">
-              <input type="text" class="form-control" name="url" value="paste here your url"></input>
+              <input type="text" class="form-control" name="url" placeholder="paste here your url"></input>
           </div>
           
                                  

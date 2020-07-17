@@ -80,10 +80,12 @@ window.onSpotifyWebPlaybackSDKReady = () => {
                     $.each(tracks, function (index, element) {
 
                         let item = $('#song-prototype').clone();
+                        let content = item.children('div').children('div').last();
                         let img = item.children('div').children('div').first().find('img');
                         img.attr('src', element.album.images[0].url);
+                        img.attr('width',"100");
 
-                        let content = item.children('div').children('div').last();
+                        
                         content.children('div').first().find('h6').text(element.name);
                         content.children('div').first().find('small').text(millisToMinutesAndSeconds(element.duration_ms));
 
@@ -170,6 +172,9 @@ window.onSpotifyWebPlaybackSDKReady = () => {
                 console.log(error, 'error on item to add');
             }
         });
+        
+        window.location.reload();
+
     });
 
 
@@ -219,6 +224,7 @@ window.onSpotifyWebPlaybackSDKReady = () => {
                 for (i in music) {
                     //console.log(music[i]);
                     if (current == music[i].music_id) {
+                        $(".now").remove();
                         $("<td class="+"now"+">now playing</td>").insertAfter( "."+i );
                     }
                 }
@@ -359,3 +365,4 @@ window.onSpotifyWebPlaybackSDKReady = () => {
         });
     });
 };
+ 

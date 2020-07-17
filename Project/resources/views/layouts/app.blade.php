@@ -77,6 +77,11 @@
                             <a class="nav-link" href="{{ route('enter.exitP') }}">Exit</a>
                         </li>
                         @endif
+                        @if(Route::is('user.show'))
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('enter.exitP') }}">Exit</a>
+                        </li>
+                        @endif
                         <!--Chiusura party-->
                         @if(Route::is('hosting.store'))
                         <li class="nav-item">

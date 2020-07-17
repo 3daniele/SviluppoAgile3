@@ -1,16 +1,35 @@
 @extends('layouts.app')
 
 @section('content')
+<script>
+  function copy() {
+    /* Get the text field */
+    var copyText = document.getElementById("myInput");
+  
+    /* Select the text field */
+    copyText.select();
+    copyText.setSelectionRange(0, 99999); /*For mobile devices*/
+  
+    /* Copy the text inside the text field */
+    document.execCommand("copy");
+  
+    /* Alert the copied text */
+    alert("Copied the text: " + copyText.value);
+  }
+  </script>
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="title m-b-md">
-                WELCOME in <br>
+                WELCOME in:
                 <?php
                     $name= DB::table('Hostings')->
                         where('id',$hosting->id)->value('name');                    
                         echo $name
                 ?>
+                <br>
+                <input type="text" class="form-control" value="{{$hosting->url}}" id="myInput">
+                <button class="btn btn-primary" onclick="copy()">Copy text</button>
                 <span class="d-none" id="token">{{Auth::user()->stoken}}</span>
                 <span class="d-none" id="hosting_id">{{$hosting->id}}</span>
                 <span class="d-none" id="playlist">{{$playlist}}</span>

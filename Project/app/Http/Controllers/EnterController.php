@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\support\Facades\DB;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use App\Playlist;
 use App\Enter;
 use App\Hosting;
 use App\User;
@@ -41,13 +42,14 @@ class EnterController extends Controller
         //Select *from(entrata) where (id_utente=utente AND hosting_id=hosting)
         //se restituisce un valore diverso da null setto status su online e faccio il redirect altrimenti 
         //memorizzo e faccio il redirect
+        $playlist = Playlist::where('hosting_id', $hosting_id)->get()->toJson();
 
-        $registrato=Enter::where('hosting_id',$hosting_id && 'user_id',$id)->first();
+        $registrato=Enter::where([['hosting_id',$hosting_id], ['user_id',$id]])->first();
 
         if($registrato==null){
         //store vera e propria
         $enter = new Enter([
-            'user_id' => $id,
+            'user_id' => Auth::user()->id,
             'hosting_id'=> $hosting_id,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
@@ -57,21 +59,24 @@ class EnterController extends Controller
             $registrato->status="online";
             $registrato->save();
         }
+
+        $hosting = Hosting::where('url', $url)->first();
         
         $hosting_type=Hosting::where('url',$url)->value('type');
         if($hosting_type=="battle"){
-            return view('utente.partybattle', compact('hosting_id'));//
+            return view('utente.partybattle', compact('hosting', 'playlist'));//
         }
-        return view('utente.partydemocracy', compact('hosting_id')); 
+        return view('utente.partydemocracy', compact('hosting', 'playlist')); 
     }
     
 
     public function exitP() {
         $id=Auth::user()->id;
-        $online=Enter::where('status','online' && 'user_id',$id)->first();
-
-        $online->status="offline";
-        $online->save();
+        $online=Enter::where([['status','online'], ['user_id',$id]])->first();
+        if ($online->status == "online") {
+            $online->status="offline";
+            $online->save();
+        }
         return redirect('dashboard')->with('success','Status update!');
         
     }

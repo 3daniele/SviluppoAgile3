@@ -27,7 +27,9 @@ class HostingController extends Controller
         $user=Auth::user()->id;
         //$h=Hosting::all();
         $h=Hosting::where('user_id',$user)->get();
-        return view('hosting.showMyParty', compact('h'));
+        $p=Enter::where('user_id',$user)->get();
+
+        return view('hosting.showMyParty', compact('h','p'));
     }
 
     /**
@@ -92,8 +94,8 @@ class HostingController extends Controller
       * @return \Illuminate\Http\Response
       */
 
-      public function show($id) {
-        
+    public function show($id) {
+
         $user=Auth::user()->id;
         $playlist = Playlist::where('hosting_id', $id)->get()->toJson();
 
@@ -106,13 +108,45 @@ class HostingController extends Controller
                 return view('host.partydemocracy', compact('hosting', 'playlist'));
             } 
             else {
-                return redirect('/dashboard')->with('error','Non è il tuo party!');
+                return redirect('/dashboard')->with('error','That\'s not your party!');
+                /*
+                if($hosting->status=="online"){
+                    if($hosting->type=="battle"){
+                        return view('user.partybattle', compact('hosting', 'playlist'));
+                    }
+                return view('user.partydemocracy', compact('hosting', 'playlist'));
+            */
             }
         }
         else {
-            return redirect('/dashboard')->with('error','Il party non esiste, sorry!');
+            return redirect('/dashboard')->with('error','Party not found, sorry!');
         }
-      }
+    }
+
+    public function userShow($id) {
+        
+        $user = Auth::user()->id;
+        $playlist = Playlist::where('hosting_id', $id)->get()->toJson();
+
+        if (Hosting::where('id', $id)->exists()) {
+            $hosting = Hosting::find($id);
+            if (Enter::where([['user_id', $user],['hosting_id', $id]])->exists()) {
+                $enter = Enter::where([['user_id', $user],['hosting_id', $id]])->first();
+                $enter->status = "online";
+                $enter->save();
+                if ($hosting->type == "battle") {   
+                    return view('utente.partybattle', compact('hosting', '127.0.0.1:8000/hosting/show/FUZk6n5IWycF5dyh'));
+                }
+                return view('utente.partydemocracy', compact('hosting', 'playlist'));
+            }
+            else {
+                return redirect('/dashboard')->with('error','You dind\'t join the party yet!');
+            }
+        }
+        else {
+            return redirect('/dashboard')->with('error','Party not found!');
+        }
+    }        
 
       /**
        * Show the form for editing the sepcified resource
