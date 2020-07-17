@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
+use App\Suggest;
 use App\Music;
+use App\Like;
 
 class MusicController extends Controller
 {
@@ -93,6 +97,7 @@ class MusicController extends Controller
             $music->duration = $request->duration;
             $music->save();
         }
+    
         
         /*
         $hosting = Hosting::where('id', $id)->first();
@@ -106,4 +111,48 @@ class MusicController extends Controller
         }
         */
     }
+
+    public function suggestMusic(Request $request, $id){
+        /*
+        if (!(Music::where('music_id', $request->uri)->exists())) {
+            $music = new Music;
+            $music->uri = $request->uri;
+            $music->artists = $request->artists;
+            $music->name = $request->name;
+            $music->duration = $request->duration;
+            $music->save();
+        }
+        */
+
+        $user=Auth::user()->id;
+        echo $user;
+
+        if(!(Suggest::where([['music_id', $request->uri],['hosting_id',$id]])->exists())){
+            $suggest=new Suggest;
+            $suggest->hosting_id=$id;
+            $suggest->user_id=$user;
+            $suggest->music_id=$request->uri;
+            $suggest->created_at=Carbon::now()->toDateTimeString();
+            $suggest->updated_at=Carbon::now()->toDateTimeString();
+            $suggest->save();
+        }
+    }
+
+    public function addLike(Request $request, $id) {
+
+        $user = Auth::user()->id;
+
+        if (!(Like::where([['music_id', $request->music],['user_id', $user]])->exists())) {
+            $like = new Like;
+            $like->user_id = $user;
+            $like->playlist_id = $request->playlist;
+            $like->created_at=Carbon::now()->toDateTimeString();
+            $like->updated_at=Carbon::now()->toDateTimeString();
+            $like->save(); 
+
+            $votes = Playlist::where('id', $request->playlist)->first();
+            $votes->votes = $votes->votes + 1;
+            $votes->save();
+        }
+    } 
 }
