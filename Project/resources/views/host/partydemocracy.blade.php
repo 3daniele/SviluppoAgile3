@@ -49,16 +49,25 @@
                       <th scope="col">Artists Names</th>
                       <th scope="col">Song Name</th>
                       <th scope="col">Duration</th>
+                      <th scope="col">Status</th>
                     </tr>
                   </thead>
                   <tbody>
+                  <span class="d-none" id="music">{{\App\Playlist::where('hosting_id', $hosting->id)->get()}}<span>
+                  <?php
+                    $count=0;    
+                  ?>
                   @foreach(\App\Playlist::where('hosting_id', $hosting->id)->get() as $music)
-                      <tr>
+                    <tr>
+                        <span class="d-none">{{$music}}</span>
                         <td>{{ \App\Music::where('uri', $music->music_id)->value('artists') }}</td>
                         <td>{{ \App\Music::where('uri', $music->music_id)->value('name') }}</td>
-                        <td>{{ \App\Music::where('uri', $music->music_id)->value('duration') }}</td>
-                      </tr> 
+                        <td class="<?php echo $count;?>">{{ \App\Music::where('uri', $music->music_id)->value('duration') }}</td>
+                    <?php
+                      $count++;    
+                    ?>
                   @endforeach
+                    </tr> 
                 </tbody>
                 </table>
                 <button type="button" class="btn btn-primary" id="previous">Previous</button>
