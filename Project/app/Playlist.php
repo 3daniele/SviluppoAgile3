@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Playlist extends Model
 {
-    protected $fillable = ['music_id','hosting_id',];
+    protected $fillable = ['playlist_id','hosting_id',];
     public $timestamps = false;
 
-    public function music() {
-        return $this->belongsTo('App\Music');
+    public function playlist() {
+        return $this->belongsTo('App\Playlist');
     }   
 
     public function hosting(){

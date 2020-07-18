@@ -35,13 +35,12 @@
             ?>
             @foreach(\App\Playlist::where('hosting_id', $hosting->id)->get() as $music)
               <tr>
-                  <span class="d-none" id="musics">{{$music->music_id}}</span>
-                  <span class="d-none" id="likes">{{\App\Playlist::where('music_id', $music->music_id)->get()->toJson()}}</span>
+                  <span class="d-none" id="playlists">{{\App\Playlist::where('hosting_id', $hosting->id)->get()}}<span>
                   <td>{{ \App\Music::where('uri', $music->music_id)->value('artists') }}</td>
                   <td>{{ \App\Music::where('uri', $music->music_id)->value('name') }}</td>
                   <td>{{ \App\Music::where('uri', $music->music_id)->value('duration') }}</td>
-                  <td class="<?php echo $count;?>">
-                  <button type="button" class="btn btn-primary" id="{{$music->music_id}}">Like</button>
+                  <td class="likeunlike">
+                  <button type="button" class="btn btn-primary" id="like" value="{{$music->id}}">Like</button>
                   </td>
               <?php
                 $count++;    

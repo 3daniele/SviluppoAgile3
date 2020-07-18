@@ -52,4 +52,4 @@ Route::post('hosting/{id}/playlist', 'PlaylistController@addMusicToPlaylist')->n
 Route::post('hosting/{id}/suggest', 'MusicController@suggestMusic')->name('suggest.add')->middleware('verified');
 
 //Like
-Route::post('hosting/{id}/like', 'PlaylistController@addLike')->name('playlist.addLike')->middleware('verified');
+Route::post('hosting/{id}/like', 'MusicController@addLike')->name('playlist.addLike')->middleware('verified');
