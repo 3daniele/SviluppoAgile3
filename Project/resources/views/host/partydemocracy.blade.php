@@ -69,6 +69,7 @@ function copy() {
                       <th scope="col">Duration</th>
                       <th scope="col">Votes</th>
                       <th scope="col">Status</th>
+                      <th scope="col"></th>
                     </tr>
                   </thead>
                   <tbody>
@@ -82,7 +83,11 @@ function copy() {
                         <td>{{ \App\Music::where('uri', $music->music_id)->value('artists') }}</td>
                         <td>{{ \App\Music::where('uri', $music->music_id)->value('name') }}</td>
                         <td>{{ \App\Music::where('uri', $music->music_id)->value('duration') }}</td>
-                        <td class="<?php echo $count;?>">{{\App\Playlist::where('music_id', $music->music_id)->value('votes')}}</td>
+                        <td>{{\App\Playlist::where('music_id', $music->music_id)->value('votes')}}</td>
+                        <td class="<?php echo $count;?>"></td>
+                        <td>
+                          <button type="button" class="btn btn-danger" id="delete" value="{{$music->id}}">Remove</button>
+                        </td>
                     <?php
                       $count++;    
                     ?>
@@ -118,7 +123,10 @@ function copy() {
                         <td>{{ \App\Music::where('uri', $music->music_id)->value('artists') }}</td>
                         <td>{{ \App\Music::where('uri', $music->music_id)->value('name') }}</td>
                         <td>{{ \App\Music::where('uri', $music->music_id)->value('duration') }}</td>
-                        <td>Yes or No</td>
+                        <td>
+                          <button type="button" class="btn btn-success" id="yes" value="{{\App\Music::where('uri', $music->music_id)->value('uri')}}">Yes</button>
+                          <button type="button" class="btn btn-danger" id="no" value="{{\App\Music::where('uri', $music->music_id)->value('uri')}}">No</button>
+                        </td>
                   @endforeach
                     </tr> 
                 </tbody>

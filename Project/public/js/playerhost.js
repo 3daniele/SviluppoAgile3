@@ -134,6 +134,7 @@ window.onSpotifyWebPlaybackSDKReady = () => {
         var instance = axios.create();
         delete instance.defaults.headers.common['X-CSRF-TOKEN'];
         
+        // AGGIUNTA DELLA CANZONE
         $.ajax({
             url: `/hosting/${hosting_id}/musics`,
             method: 'POST',
@@ -155,6 +156,7 @@ window.onSpotifyWebPlaybackSDKReady = () => {
             }
         });
 
+        // AGGIUNTA ALLA PLAYLIST
         $.ajax({
             url: `/hosting/${hosting_id}/playlist`,
             method: 'POST',
@@ -177,6 +179,32 @@ window.onSpotifyWebPlaybackSDKReady = () => {
 
     });
 
+    /*----------------------- RIMOZIONE DI UNA CANZONE DALLA PLAYLIST --------------------*/
+    $(document).on("click", "#delete", function (event) {
+        event.preventDefault();
+        var music = $(this).val();
+        console.log(music);
+        
+        $.ajax({
+            url: `/hosting/${hosting_id}/playlist`,
+            method: 'DELETE',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: {
+                'playlist': music
+            },
+            dataType: 'json',
+            success: function (response) {
+                console.log(response);
+            },
+            error: function (error) {
+                console.log(error, 'error on item to add');
+            }
+        });
+        window.location.reload();
+    });
+
 
     /*-----------------------------Asdrubale--------------------------------- */
     
@@ -185,7 +213,7 @@ window.onSpotifyWebPlaybackSDKReady = () => {
         event.preventDefault();
         
         var playlist = JSON.parse($("#playlist").text());
-        //console.log(playlist);
+        console.log(playlist);
     
         var uris = new Array();
     
@@ -194,7 +222,8 @@ window.onSpotifyWebPlaybackSDKReady = () => {
             uris.push(playlist[i].music_id);
             //console.log(uris[i]);
         }
-        
+        console.log(uris);
+
         var instance = axios.create();
         delete instance.defaults.headers.common['X-CSRF-TOKEN'];
     
@@ -225,7 +254,7 @@ window.onSpotifyWebPlaybackSDKReady = () => {
                     //console.log(music[i]);
                     if (current == music[i].music_id) {
                         $(".now").remove();
-                        $("<td class="+"now"+">now playing</td>").insertAfter( "."+i );
+                        $("<td class="+"now"+">now playing</td>").appendTo( "."+i );
                     }
                 }
             });
@@ -300,7 +329,7 @@ window.onSpotifyWebPlaybackSDKReady = () => {
                     //console.log(music[i]);
                     if (current == music[i].music_id) {
                         $(".now").remove();
-                        $("<td class="+"now"+">now playing</td>").insertAfter( "."+i );
+                        $("<td class="+"now"+">now playing</td>").appendTo( "."+i );
                     }
                 }
             });
@@ -337,7 +366,7 @@ window.onSpotifyWebPlaybackSDKReady = () => {
                     //console.log(music[i]);
                     if (current == music[i].music_id) {
                         $(".now").remove();
-                        $("<td class="+"now"+">now playing</td>").insertAfter( "."+i );
+                        $("<td class="+"now"+">now playing</td>").appendTo( "."+i );
                     }
                 }
             });
@@ -363,6 +392,79 @@ window.onSpotifyWebPlaybackSDKReady = () => {
             dataType: 'json'
         }).then(function (data) {
         });
+    });
+
+    /*----------------------- ACCETTAZIONE DI UNA CANZONE SUGGERITA --------------------*/
+    $(document).on("click", "#yes", function (event) {
+        event.preventDefault();
+        var music = $(this).val();
+        console.log(music);
+    
+        // AGGIUNTA IN PLAYLIST
+        $.ajax({
+            url: `/hosting/${hosting_id}/playlist`,
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: {
+                'uri': music
+            },
+            dataType: 'json',
+            success: function (response) {
+                console.log(response);
+            },
+            error: function (error) {
+                console.log(error, 'error on item to add');
+            }
+        });
+
+        // RIMOZIONE DALLA LISTA DEI SUGGERITI
+        $.ajax({
+            url: `/hosting/${hosting_id}/suggest`,
+            method: 'DELETE',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: {
+                'uri': music
+            },
+            dataType: 'json',
+            success: function (response) {
+                console.log(response);
+            },
+            error: function (error) {
+                console.log(error, 'error on item to add');
+            }
+        });
+        window.location.reload();
+    });
+    
+    /*----------------------- RIFIUTO DI UNA CANZONE SUGGERITA --------------------*/
+    $(document).on("click", "#no", function (event) {
+        event.preventDefault();
+        var music = $(this).val();
+        console.log(music);
+        
+        // RIMOZIONE DALLA LISTA DEI SUGGERITI
+        $.ajax({
+            url: `/hosting/${hosting_id}/suggest`,
+            method: 'DELETE',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: {
+                'uri': music
+            },
+            dataType: 'json',
+            success: function (response) {
+                console.log(response);
+            },
+            error: function (error) {
+                console.log(error, 'error on item to add');
+            }
+        });
+        window.location.reload();
     });
 };
  
