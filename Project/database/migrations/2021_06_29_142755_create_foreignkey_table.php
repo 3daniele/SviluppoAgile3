@@ -67,8 +67,8 @@ class CreateForeignkeyTable extends Migration
                 ->on('users')->onDelete('cascade'); });
                 
         Schema::table('likes', function(Blueprint $table0) {
-            $table0->foreign('music_id')->references('id')
-                ->on('musics')->onDelete('cascade'); });
+            $table0->foreign('playlist_id')->references('id')
+                ->on('playlists')->onDelete('cascade'); });
     }
 
     /**

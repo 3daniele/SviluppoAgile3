@@ -172,19 +172,15 @@ window.onSpotifyWebPlaybackSDKReady = () => {
         });
     });
 
-    var music = JSON.parse($("#music").text());
-    console.log(music);
+    /*----------------------- INSERIMENTO DI UN LIKE AD UNA CANZONE DELLA PLAYLIST --------------------*/  
+    //hosting id e l'id della playlist  memorizziamo in like
+    //var playlist = JSON.parse($("#playlists").text());
+    //console.log(playlist); 
+    $(document).on("click", "#like", function (event) {
+        event.preventDefault();
+            var playlist = $(this).val();
+            console.log(playlist);
 
-    for (i in music) {
-        console.log("#"+music[i].music_id);
-        var id = music[i].music_id;
-        $(document).on("click", `#${id}`, function (event) {
-            event.preventDefault();
-            var like = JSON.parse($("#likes").text());
-            
-            var music = JSON.parse($("#music").text());
-            console.log(music);
-    
             $.ajax({
                 //hosting/{id}/suggest
                 url: `/hosting/${hosting_id}/like`,
@@ -193,7 +189,7 @@ window.onSpotifyWebPlaybackSDKReady = () => {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 data: {
-                    'music': music
+                    'playlist': playlist
                 },
                 dataType: 'json',
                 success: function (response) {
@@ -201,36 +197,8 @@ window.onSpotifyWebPlaybackSDKReady = () => {
                 },
                 error: function (error) {
                     console.log(error, 'error on item to add');
-                }
-            });
-        });    
-    }
-
-    $(document).on("click", "#like", function (event) {
-        event.preventDefault();
-        var like = JSON.parse($("#likes").text());
-        
-        var music = JSON.parse($("#music").text());
-        console.log(music);
-
-        $.ajax({
-            //hosting/{id}/suggest
-            url: `/hosting/${hosting_id}/like`,
-            method: 'POST',
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            data: {
-                'music': music
-            },
-            dataType: 'json',
-            success: function (response) {
-                console.log(response);
-            },
-            error: function (error) {
-                console.log(error, 'error on item to add');
             }
         });
-    });    
+        $('#like').prop('disabled', true);
+    });     
 };
- 

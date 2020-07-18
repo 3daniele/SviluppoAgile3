@@ -3,14 +3,15 @@
     "",
     "\\app",
     "\\app\\Http",
-    "\\app\\Http\\Controllers",
-    "\\config",
-    "\\database\\migrations",
+    "\\database",
     "\\public",
+    "\\public\\js",
     "\\resources",
+    "\\resources\\js",
     "\\resources\\views",
+    "\\resources\\views\\utente",
     "\\routes"
   ],
-  "SelectedNode": "\\config\\hashing.php",
+  "SelectedNode": "\\public\\js\\playerpartecipant.js",
   "PreviewInSolutionExplorer": false
 }

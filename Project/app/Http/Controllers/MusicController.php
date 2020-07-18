@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use App\Playlist;
 use App\Suggest;
 use App\Music;
 use App\Like;
@@ -142,14 +143,14 @@ class MusicController extends Controller
 
         $user = Auth::user()->id;
 
-        if (!(Like::where([['music_id', $request->music],['user_id', $user]])->exists())) {
+        if (!(Like::where([['playlist_id', $request->playlist],['user_id', $user]])->exists())) {
             $like = new Like;
             $like->user_id = $user;
             $like->playlist_id = $request->playlist;
             $like->created_at=Carbon::now()->toDateTimeString();
             $like->updated_at=Carbon::now()->toDateTimeString();
             $like->save(); 
-
+           
             $votes = Playlist::where('id', $request->playlist)->first();
             $votes->votes = $votes->votes + 1;
             $votes->save();
