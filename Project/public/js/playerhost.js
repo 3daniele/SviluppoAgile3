@@ -213,7 +213,7 @@ window.onSpotifyWebPlaybackSDKReady = () => {
         event.preventDefault();
         
         var playlist = JSON.parse($("#playlist").text());
-        console.log(playlist);
+        //console.log(playlist);
     
         var uris = new Array();
     
@@ -222,7 +222,7 @@ window.onSpotifyWebPlaybackSDKReady = () => {
             uris.push(playlist[i].music_id);
             //console.log(uris[i]);
         }
-        console.log(uris);
+        //console.log(uris);
 
         var instance = axios.create();
         delete instance.defaults.headers.common['X-CSRF-TOKEN'];
@@ -248,15 +248,18 @@ window.onSpotifyWebPlaybackSDKReady = () => {
             }).then(function (data) {
                 var current = data.data.item.uri;
                 console.log(current);
-                var music = JSON.parse($("#music").text());
-                console.log(music);
-                for (i in music) {
+                var musics = JSON.parse($("#musics").text());
+                console.log(musics);
+                for (i in musics) {
                     //console.log(music[i]);
-                    if (current == music[i].music_id) {
-                        $(".now").remove();
-                        $("<td class="+"now"+">now playing</td>").appendTo( "."+i );
+                    if (current == musics[i].music_id) {
+                        //$("<td class="+"now"+">now playing</td>").appendTo( "."+musics[i].id );
+                        $("#now").text("");
+                        $("#now").removeAttr("id");
+                        $("."+musics[i].id).text("now playing");
+                        $("."+musics[i].id).attr("id", "now");
                     }
-                }
+                }           
             });
         });
     });
@@ -323,13 +326,17 @@ window.onSpotifyWebPlaybackSDKReady = () => {
             }).then(function (data) {
                 var current = data.data.item.uri;
                 console.log(current);
-                var music = JSON.parse($("#music").text());
-                console.log(music);
-                for (i in music) {
+                var musics = JSON.parse($("#musics").text());
+                console.log(musics);
+                for (i in musics) {
                     //console.log(music[i]);
-                    if (current == music[i].music_id) {
-                        $(".now").remove();
-                        $("<td class="+"now"+">now playing</td>").appendTo( "."+i );
+                    if (current == musics[i].music_id) {
+                        //$(".now").remove();
+                        //$("<td class="+"now"+">now playing</td>").appendTo( "."+musics[i].id );
+                        $("#now").text("");
+                        $("#now").removeAttr("id");
+                        $("."+musics[i].id).text("now playing");
+                        $("."+musics[i].id).attr("id", "now");
                     }
                 }
             });
@@ -360,13 +367,17 @@ window.onSpotifyWebPlaybackSDKReady = () => {
             }).then(function (data) {
                 var current = data.data.item.uri;
                 console.log(current);
-                var music = JSON.parse($("#music").text());
-                console.log(music);
-                for (i in music) {
+                var musics = JSON.parse($("#musics").text());
+                console.log(musics);
+                for (i in musics) {
                     //console.log(music[i]);
-                    if (current == music[i].music_id) {
-                        $(".now").remove();
-                        $("<td class="+"now"+">now playing</td>").appendTo( "."+i );
+                    if (current == musics[i].music_id) {
+                        //$(".now").remove();
+                        //$("<td class="+"now"+">now playing</td>").appendTo( "."+musics[i].id );
+                        $("#now").text("");
+                        $("#now").removeAttr("id");
+                        $("."+musics[i].id).text("now playing");
+                        $("."+musics[i].id).attr("id", "now");
                     }
                 }
             });

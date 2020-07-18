@@ -73,24 +73,18 @@ function copy() {
                     </tr>
                   </thead>
                   <tbody>
-                  <span class="d-none" id="music">{{\App\Playlist::where('hosting_id', $hosting->id)->get()}}<span>
-                  <?php
-                    $count=0;    
-                  ?>
+                  <span class="d-none" id="musics">{{\App\Playlist::where('hosting_id', $hosting->id)->orderByDesc('votes')->get()}}<span>
                   @foreach(\App\Playlist::where('hosting_id', $hosting->id)->orderByDesc('votes')->get() as $music)
                     <tr>
-                        <span class="d-none">{{$music}}</span>
+                        <span class="d-none" id="music">{{$music}}</span>
                         <td>{{ \App\Music::where('uri', $music->music_id)->value('artists') }}</td>
                         <td>{{ \App\Music::where('uri', $music->music_id)->value('name') }}</td>
                         <td>{{ \App\Music::where('uri', $music->music_id)->value('duration') }}</td>
                         <td>{{\App\Playlist::where('music_id', $music->music_id)->value('votes')}}</td>
-                        <td class="<?php echo $count;?>"></td>
+                        <td class="{{$music->id}}"></td>
                         <td>
                           <button type="button" class="btn btn-danger" id="delete" value="{{$music->id}}">Remove</button>
                         </td>
-                    <?php
-                      $count++;    
-                    ?>
                   @endforeach
                     </tr> 
                 </tbody>
