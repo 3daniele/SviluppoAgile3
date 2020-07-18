@@ -47,9 +47,11 @@ Route::post('hosting/{id}/musics', 'MusicController@addMusic')->name('music.add'
 
 //Playlist
 Route::post('hosting/{id}/playlist', 'PlaylistController@addMusicToPlaylist')->name('playlist.add')->middleware('verified');
+Route::delete('hosting/{id}/playlist', 'PlaylistController@removeMusicFromPlaylist')->name('playlist.remove')->middleware('verified');
 
 //Suggest
 Route::post('hosting/{id}/suggest', 'MusicController@suggestMusic')->name('suggest.add')->middleware('verified');
+Route::delete('hosting/{id}/suggest', 'MusicController@destroySuggest')->name('suggest.delete')->middleware('verified');
 
 //Like
 Route::post('hosting/{id}/like', 'MusicController@addLike')->name('playlist.addLike')->middleware('verified');

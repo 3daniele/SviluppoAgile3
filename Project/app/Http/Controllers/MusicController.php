@@ -139,6 +139,15 @@ class MusicController extends Controller
         }
     }
 
+    public function destroySuggest(Request $request, $id) {
+
+        if (Suggest::where([['hosting_id', $id], ['music_id', $request->uri]])->exists()) {
+            $suggest_id = Suggest::where([['hosting_id', $id], ['music_id', $request->uri]])->value('id');
+            $suggest = Suggest::find($suggest_id);
+            $suggest->delete();
+        }
+    }
+
     public function addLike(Request $request, $id) {
 
         $user = Auth::user()->id;

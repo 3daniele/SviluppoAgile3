@@ -96,4 +96,12 @@ class PlaylistController extends Controller
             $playlist->save();
         }  
     }
+
+    public function removeMusicFromPlaylist(Request $request, $id) {
+
+        if (Playlist::where([['id', $request->playlist],["hosting_id",$id]])->exists()) {
+            $playlist = Playlist::find($request->playlist);
+            $playlist->delete();
+        }
+    }
 }

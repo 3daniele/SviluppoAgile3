@@ -42,7 +42,7 @@ class EnterController extends Controller
         //Select *from(entrata) where (id_utente=utente AND hosting_id=hosting)
         //se restituisce un valore diverso da null setto status su online e faccio il redirect altrimenti 
         //memorizzo e faccio il redirect
-        $playlist = Playlist::where('hosting_id', $hosting_id)->get()->toJson();
+        $playlist = Playlist::where('hosting_id', $hosting_id)->orderByDesc('votes')->get()->toJson();
 
         $registrato=Enter::where([['hosting_id',$hosting_id], ['user_id',$id]])->first();
 

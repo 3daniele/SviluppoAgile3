@@ -178,27 +178,27 @@ window.onSpotifyWebPlaybackSDKReady = () => {
     //console.log(playlist); 
     $(document).on("click", "#like", function (event) {
         event.preventDefault();
-            var playlist = $(this).val();
-            console.log(playlist);
+        var playlist = $(this).val();
+        console.log(playlist);
 
-            $.ajax({
-                //hosting/{id}/suggest
-                url: `/hosting/${hosting_id}/like`,
-                method: 'POST',
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                data: {
-                    'playlist': playlist
-                },
-                dataType: 'json',
-                success: function (response) {
-                    console.log(response);
-                },
-                error: function (error) {
-                    console.log(error, 'error on item to add');
+        $.ajax({
+            //hosting/{id}/suggest
+            url: `/hosting/${hosting_id}/like`,
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: {
+                'playlist': playlist
+            },
+            dataType: 'json',
+            success: function (response) {
+                console.log(response);
+            },
+            error: function (error) {
+                console.log(error, 'error on item to add');
             }
         });
-        $('#like').prop('disabled', true);
+        $(this).prop('disabled', true);
     });     
 };

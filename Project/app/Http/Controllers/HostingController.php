@@ -97,7 +97,7 @@ class HostingController extends Controller
     public function show($id) {
 
         $user=Auth::user()->id;
-        $playlist = Playlist::where('hosting_id', $id)->get()->toJson();
+        $playlist = Playlist::where('hosting_id', $id)->orderByDesc('votes')->get()->toJson();
 
         if (Hosting::where('id', $id)->exists()) {
             $hosting = Hosting::find($id);
