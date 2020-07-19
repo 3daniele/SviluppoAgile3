@@ -55,3 +55,6 @@ Route::delete('hosting/{id}/suggest', 'MusicController@destroySuggest')->name('s
 
 //Like
 Route::post('hosting/{id}/like', 'MusicController@addLike')->name('playlist.addLike')->middleware('verified');
+
+//Battle
+Route::post('hosting/{id}/battle', 'BattleController@add')->name('battle.add')->middleware('verified');

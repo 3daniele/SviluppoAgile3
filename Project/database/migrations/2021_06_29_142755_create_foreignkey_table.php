@@ -69,6 +69,28 @@ class CreateForeignkeyTable extends Migration
         Schema::table('likes', function(Blueprint $table0) {
             $table0->foreign('playlist_id')->references('id')
                 ->on('playlists')->onDelete('cascade'); });
+        
+        //Battle
+        Schema::table('battles', function(Blueprint $table0) {
+            $table0->foreign('uri1')->references('uri')
+                ->on('musics')->onDelete('cascade'); });
+
+        Schema::table('battles', function(Blueprint $table0) {
+            $table0->foreign('uri2')->references('uri')
+                ->on('musics')->onDelete('cascade'); });
+
+        Schema::table('battles', function(Blueprint $table0) {
+            $table0->foreign('hosting_id')->references('id')
+                ->on('hostings')->onDelete('cascade'); });
+
+        //Voti
+        Schema::table('votes', function(Blueprint $table0) {
+            $table0->foreign('user_id')->references('id')
+                ->on('users')->onDelete('cascade'); });
+
+        Schema::table('votes', function(Blueprint $table0) {
+            $table0->foreign('battle_id')->references('id')
+                ->on('battles')->onDelete('cascade'); });
     }
 
     /**
