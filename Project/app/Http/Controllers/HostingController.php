@@ -9,6 +9,7 @@ use Illuminate\Support\Str;
 use Carbon\Carbon;
 use App\Playlist;
 use App\Hosting;
+use App\Battle;
 use App\Genre;
 use App\Enter;
 use App\User;
@@ -98,12 +99,13 @@ class HostingController extends Controller
 
         $user=Auth::user()->id;
         $playlist = Playlist::where('hosting_id', $id)->orderByDesc('votes')->get()->toJson();
+        $battle = Battle::where('hosting_id',$id)->first();
 
         if (Hosting::where('id', $id)->exists()) {
             $hosting = Hosting::find($id);
             if ($hosting->user_id == $user) {
                 if($hosting->type=="battle"){
-                    return view('host.partybattle', compact('hosting', 'playlist'));
+                    return view('host.partybattle', compact('hosting', 'battle'));
                 }
                 return view('host.partydemocracy', compact('hosting', 'playlist'));
             } 
