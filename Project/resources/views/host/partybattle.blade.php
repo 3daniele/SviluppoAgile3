@@ -28,6 +28,8 @@ function copy() {
                     echo $name
                 ?>
                 <br>
+                <br>
+                <label>Copy the link below and send it to your friends so they can join your party!</label>
                 <input type="text" class="form-control" value="{{$hosting->url}}" id="myInput">
                 <button class="btn btn-primary" onclick="copy()">Copy text</button>
                 <span class="d-none" id="token">{{Auth::user()->stoken}}</span>
@@ -84,12 +86,16 @@ function copy() {
                       </div>
                     </div>
                   </div>
-                  <div id="result"></div>
+                  <div id="result1"></div>
                 </div>
-
+                @if (!$battle)
                 <!--Bottone per selezione musica modalità battaglia-->
-                <button type="button" class="btn btn-primary" id="battle">Add</button>
-
+                <button type="button" class="btn btn-primary" id="addbattle">Add</button>
+                @else
+                <button type="button" class="btn btn-primary" id="updatebattle">Change</button>
+                @endif
+                <br>
+                <br>
                 <!--Tabella battle-->
                 <table class="table">
                   <thead class="thead-dark">
@@ -99,33 +105,39 @@ function copy() {
                       <th scope="col">Duration</th>
                       <th scope="col">Votes</th>
                       <th scope="col">Status</th>
-                      <th scope="col"></th>
                     </tr>
                   </thead>
                   <tbody>
                   <span class="d-none" id="musics">{{\App\Battle::where('hosting_id', $hosting->id)->get()}}<span>
-                    <tr>
+                  <?php
+                  
+                    if ($battle) {
+                      echo('<tr>');
+                         $a=\App\Music::where('uri', $battle->uri1)->value('artists');
+                        echo("<td>'$a'</td>");
+                        $a=\App\Music::where('uri', $battle->uri1)->value('name');
+                        echo("<td>'$a'</td>");
+                        $a=\App\Music::where('uri', $battle->uri1)->value('duration');
+                        echo("<td>'$a'</td>");
+                        $a=\App\Battle::where('uri1', $battle->uri1)->value('votes1');
+                        echo("<td>'$a'</td>");
+                        echo("<td></td>");
+                        
+                        echo('</tr>');
+                    echo('<tr>');
+                        $a = \App\Music::where('uri', $battle->uri2)->value('artists');
+                        echo("<td>'$a'</td>");
+                        $a = \App\Music::where('uri', $battle->uri2)->value('name');
+                        echo("<td>'$a'</td>");
+                        $a = \App\Music::where('uri', $battle->uri2)->value('duration');
+                        echo("<td>'$a'</td>");
+                        $a=\App\Battle::where('uri2', $battle->uri2)->value('votes2');
+                        echo("<td>'$a'</td>");
+                        echo('<td></td>');
                       
-                        <td>{{ \App\Music::where('uri', $battle->uri1)->value('artists') }}</td>
-                        <td>{{ \App\Music::where('uri', $battle->uri1)->value('name') }}</td>
-                        <td>{{ \App\Music::where('uri', $battle->uri1)->value('duration') }}</td>
-                        <td></td>
-                        <td>
-                          <button type="button" class="btn btn-danger" id="delete">Remove</button>
-                        </td>
-                      
-                    </tr> 
-                    <tr>
-                      
-                        <td>{{ \App\Music::where('uri', $battle->uri2)->value('artists') }}</td>
-                        <td>{{ \App\Music::where('uri', $battle->uri2)->value('name') }}</td>
-                        <td>{{ \App\Music::where('uri', $battle->uri2)->value('duration') }}</td>
-                        <td></td>
-                        <td>
-                          <button type="button" class="btn btn-danger" id="delete">Remove</button>
-                        </td>
-                      
-                    </tr>
+                    echo('</tr>');
+                    }
+                  ?>
                 </tbody>
                 </table>
                 <button type="button" class="btn btn-primary" id="previous">Previous</button>

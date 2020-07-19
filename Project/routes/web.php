@@ -58,3 +58,8 @@ Route::post('hosting/{id}/like', 'MusicController@addLike')->name('playlist.addL
 
 //Battle
 Route::post('hosting/{id}/battle', 'BattleController@add')->name('battle.add')->middleware('verified');
+Route::put('hosting/{id}/battle', 'BattleController@update')->name('battle.update')->middleware('verified');
+Route::post('hosting/{id}/battle/vote', 'BattleController@vote')->name('battle.vote')->middleware('verified');
+
+//VOTE
+Route::delete('hosting/{id}/votes', 'VoteController@destroy')->name('vote.delete')->middleware('verified');

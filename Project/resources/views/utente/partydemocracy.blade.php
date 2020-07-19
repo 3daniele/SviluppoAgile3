@@ -49,7 +49,6 @@
               </tr> 
           </tbody>
           </table>
-          <br>
 
           <!-- Single Widget Area -->
           <div class="single-widget-area search-widget-area mb-1 mt-3">
@@ -82,5 +81,5 @@
     </div>
 </div>
 <script src="https://sdk.scdn.co/spotify-player.js" defer></script>
-<script src="/js/playerpartecipant.js"></script>
+<script src="/js/playerpartecipantdemocracy.js"></script>
 @endsection

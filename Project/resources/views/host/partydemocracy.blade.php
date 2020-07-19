@@ -28,6 +28,8 @@ function copy() {
                     echo $name
                 ?>
                 <br>
+                <br>
+                <label>Copy the link below and send it to your friends so they can join your party!</label>
                 <input type="text" class="form-control" value="{{$hosting->url}}" id="myInput">
                 <button class="btn btn-primary" onclick="copy()">Copy text</button>
                 <span class="d-none" id="token">{{Auth::user()->stoken}}</span>
@@ -131,5 +133,5 @@ function copy() {
     </div>
 </div>
 <script src="https://sdk.scdn.co/spotify-player.js" defer></script>
-<script src="/js/playerhost.js"></script>
+<script src="/js/playerhostdemocracy.js"></script>
 @endsection

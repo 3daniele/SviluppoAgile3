@@ -7,8 +7,9 @@ use Illuminate\support\Facades\DB;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Playlist;
-use App\Enter;
 use App\Hosting;
+use App\Battle;
+use App\Enter;
 use App\User;
 
 class EnterController extends Controller
@@ -43,6 +44,10 @@ class EnterController extends Controller
         //se restituisce un valore diverso da null setto status su online e faccio il redirect altrimenti 
         //memorizzo e faccio il redirect
         $playlist = Playlist::where('hosting_id', $hosting_id)->orderByDesc('votes')->get()->toJson();
+        $battle = null;
+        if (Battle::where('hosting_id', $id)->exists()) {
+            $battle = Battle::where('hosting_id',$id)->first();
+        }
 
         $registrato=Enter::where([['hosting_id',$hosting_id], ['user_id',$id]])->first();
 
@@ -64,7 +69,7 @@ class EnterController extends Controller
         
         $hosting_type=Hosting::where('url',$url)->value('type');
         if($hosting_type=="battle"){
-            return view('utente.partybattle', compact('hosting', 'playlist'));//
+            return view('utente.partybattle', compact('hosting', 'battle'));//
         }
         return view('utente.partydemocracy', compact('hosting', 'playlist')); 
     }
