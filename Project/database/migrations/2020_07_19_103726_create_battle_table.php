@@ -18,7 +18,8 @@ class CreateBattleTable extends Migration
             $table->string('uri1');
             $table->string('uri2');
             $table->unsignedBigInteger('hosting_id');
-            $table->enum('votes',['canzone1','canzone2'])->nullable();
+            $table->unsignedBigInteger('votes1')->default(0);
+            $table->unsignedBigInteger('votes2')->default(0);
             $table->timestamps();
         });
     }

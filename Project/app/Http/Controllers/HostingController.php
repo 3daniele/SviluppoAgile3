@@ -99,7 +99,11 @@ class HostingController extends Controller
 
         $user=Auth::user()->id;
         $playlist = Playlist::where('hosting_id', $id)->orderByDesc('votes')->get()->toJson();
-        $battle = Battle::where('hosting_id',$id)->first();
+        
+        $battle = null;
+        if (Battle::where('hosting_id', $id)->exists()) {
+            $battle = Battle::where('hosting_id',$id)->first();
+        }
 
         if (Hosting::where('id', $id)->exists()) {
             $hosting = Hosting::find($id);
@@ -129,6 +133,10 @@ class HostingController extends Controller
         
         $user = Auth::user()->id;
         $playlist = Playlist::where('hosting_id', $id)->get()->toJson();
+        $battle = null;
+        if (Battle::where('hosting_id', $id)->exists()) {
+            $battle = Battle::where('hosting_id',$id)->first();
+        }
 
         if (Hosting::where('id', $id)->exists()) {
             $hosting = Hosting::find($id);
@@ -137,7 +145,7 @@ class HostingController extends Controller
                 $enter->status = "online";
                 $enter->save();
                 if ($hosting->type == "battle") {   
-                    return view('utente.partybattle', compact('hosting', '127.0.0.1:8000/hosting/show/FUZk6n5IWycF5dyh'));
+                    return view('utente.partybattle', compact('hosting', 'battle'));
                 }
                 return view('utente.partydemocracy', compact('hosting', 'playlist'));
             }

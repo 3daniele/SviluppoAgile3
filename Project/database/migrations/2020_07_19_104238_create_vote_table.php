@@ -17,6 +17,7 @@ class CreateVoteTable extends Migration
             $table->id();
             $table->unsignedBigInteger('battle_id');
             $table->unsignedBigInteger('user_id');
+            $table->enum('song',['1','2'])->nullable();
             $table->timestamps();
         });
     }
