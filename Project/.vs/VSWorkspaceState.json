@@ -1,16 +1,16 @@
 {
   "ExpandedNodes": [
     "",
-    "\\database",
-    "\\database\\factories",
-    "\\public",
-    "\\public\\js",
+    "\\app",
+    "\\app\\Exceptions",
+    "\\app\\Http",
+    "\\app\\Http\\Controllers",
     "\\resources",
-    "\\resources\\js",
     "\\resources\\views",
-    "\\resources\\views\\utente",
-    "\\routes"
+    "\\resources\\views\\auth",
+    "\\resources\\views\\host",
+    "\\resources\\views\\hosting"
   ],
-  "SelectedNode": "\\public\\js\\playerhostdemocracy.js",
+  "SelectedNode": "\\resources\\views\\host\\partybattle.blade.php",
   "PreviewInSolutionExplorer": false
 }
