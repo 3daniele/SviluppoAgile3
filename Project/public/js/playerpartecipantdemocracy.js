@@ -10,6 +10,12 @@ window.onSpotifyWebPlaybackSDKReady = () => {
       getOAuthToken: cb => { cb(token); }
     });
     var deviceId;
+
+    function millisToMinutesAndSeconds(millis) {
+        var minutes = Math.floor(millis / 60000);
+        var seconds = ((millis % 60000) / 1000).toFixed(0);
+        return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
+    }
   
     
     // Error handling
@@ -25,6 +31,67 @@ window.onSpotifyWebPlaybackSDKReady = () => {
     player.addListener('ready', ({ device_id }) => {
       console.log('Ready with Device ID', device_id);
       deviceId = device_id;
+      
+    /*----------------------- BRANO IN RIPRODUZIONE --------------------*/
+    var pippo = $("#htoken").text();
+    console.log(pippo);
+
+    var instance = axios.create();
+    delete instance.defaults.headers.common['X-CSRF-TOKEN'];
+     
+    instance({
+        url: "https://api.spotify.com/v1/me/player/currently-playing",
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + pippo,
+        },
+        dataType: 'json'
+    }).then(function (data) {
+        var current = data.data.item.uri;//uri corrente
+        console.log(data);
+        var time= data.data.progress_ms;
+        console.log(time);
+
+        //riproduzione
+        var playlist = JSON.parse($("#playlist").text());
+        //console.log(playlist);
+    
+        var uris = new Array();
+    
+        for (i in playlist) {
+            // console.log(playlist[i].music_id);
+            uris.push(playlist[i].music_id);
+            //console.log(uris[i]);
+        }
+        var indice=0;
+        for(i in uris){
+            if(uris[i]==current){
+                indice=i;
+            }
+        }
+        console.log(indice);
+        //SELECT stoken FROM users,hostings,enters WHERE (users.id=enters.user_id && hostings.id=enters.hosting_id && enters.status="online");
+        var instance = axios.create();
+        delete instance.defaults.headers.common['X-CSRF-TOKEN'];
+    
+        instance({
+            url: "https://api.spotify.com/v1/me/player/play?device_id=" + deviceId,
+            method: 'PUT',
+            headers: {
+                'Authorization': 'Bearer ' + token,
+            },
+            data: {
+                "uris": uris,
+                "offset": {
+                    "position": indice
+                },
+                "position_ms": time
+            },
+            dataType: 'json'
+        })
+    });
+    
+
     });
   
     // Not Ready
@@ -34,14 +101,6 @@ window.onSpotifyWebPlaybackSDKReady = () => {
   
     // Connect to the player!
     player.connect();
-
-
-    function millisToMinutesAndSeconds(millis) {
-        var minutes = Math.floor(millis / 60000);
-        var seconds = ((millis % 60000) / 1000).toFixed(0);
-        return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
-    }
-
 
 
     /*----------------------- CERCARE UNA CANZONE --------------------*/

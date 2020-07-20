@@ -19,7 +19,7 @@ class CreateEnterTable extends Migration
             $table->unsignedBigInteger('hosting_id');
             $table->enum('status',['online','offline'])->default('online');
             $table->timestamps();
-            $table->unique('user_id', 'hosting_id');
+            //$table->unique('user_id', 'hosting_id');
         });
     }
 

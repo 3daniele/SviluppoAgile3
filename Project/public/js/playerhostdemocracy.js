@@ -281,6 +281,53 @@ window.onSpotifyWebPlaybackSDKReady = () => {
             },
             dataType: 'json'
         }).then(function (data) {
+            var enters = JSON.parse($("#enters").text());
+            var users = JSON.parse($("#users").text());
+            //console.log(enters);
+            //console.log(users);
+            var tokens = new Array();
+
+            for (i in enters) {
+                for (j in users) {
+                    if (enters[i].user_id == users[j].id) {
+                        tokens.push(users[j].stoken);
+                    }
+                }
+            }
+            console.log(tokens);
+
+            for (i in tokens) {
+                console.log(tokens[i]);
+                instance({
+                    url: "https://api.spotify.com/v1/me/player/devices",
+                    method: 'GET',
+                    headers: {
+                        'Authorization': 'Bearer ' + tokens[i],
+                    },
+                    dataType: 'json'
+                }).then(function (data) {
+            var devices = data.data.devices;
+            var device;
+            //console.log(devices);
+            //console.log(devices[0].is_active);
+            for (j in devices) {
+                if (devices[j].is_active == true) {
+                    device = devices[j].id;
+                    }
+                }
+            //console.log(device);
+            console.log(tokens[i]);
+                        
+            instance({
+                url: "https://api.spotify.com/v1/me/player/play?device_id=" + device,
+                method: 'PUT',
+                headers: {
+                    'Authorization': 'Bearer ' + tokens[i],
+                },
+                dataType: 'json'
+                });
+            });
+            }
         });
     });
 
@@ -299,6 +346,53 @@ window.onSpotifyWebPlaybackSDKReady = () => {
             },
             dataType: 'json'
         }).then(function (data) {
+            var enters = JSON.parse($("#enters").text());
+            var users = JSON.parse($("#users").text());
+            //console.log(enters);
+            //console.log(users);
+            var tokens = new Array();
+
+            for (i in enters) {
+                for (j in users) {
+                    if (enters[i].user_id == users[j].id) {
+                        tokens.push(users[j].stoken);
+                    }
+                }
+            }
+            console.log(tokens);
+
+            for (i in tokens) {
+                console.log(tokens[i]);
+                instance({
+                    url: "https://api.spotify.com/v1/me/player/devices",
+                    method: 'GET',
+                    headers: {
+                        'Authorization': 'Bearer ' + tokens[i],
+                    },
+                    dataType: 'json'
+                }).then(function (data) {
+            var devices = data.data.devices;
+            var device;
+            //console.log(devices);
+            //console.log(devices[0].is_active);
+            for (j in devices) {
+                if (devices[j].is_active == true) {
+                    device = devices[j].id;
+                    }
+                }
+            //console.log(device);
+            console.log(tokens[i]);
+                        
+            instance({
+                url: "https://api.spotify.com/v1/me/player/pause?device_id=" + device,
+                method: 'PUT',
+                headers: {
+                    'Authorization': 'Bearer ' + tokens[i],
+                },
+                dataType: 'json'
+                });
+            });
+            }
         });
     });
 
@@ -338,6 +432,54 @@ window.onSpotifyWebPlaybackSDKReady = () => {
                         $("."+musics[i].id).text("now playing");
                         $("."+musics[i].id).attr("id", "now");
                     }
+                }
+            }).then(function (data) {
+                var enters = JSON.parse($("#enters").text());
+                var users = JSON.parse($("#users").text());
+                //console.log(enters);
+                //console.log(users);
+                var tokens = new Array();
+
+                for (i in enters) {
+                    for (j in users) {
+                        if (enters[i].user_id == users[j].id) {
+                            tokens.push(users[j].stoken);
+                        }
+                    }
+                }
+                console.log(tokens);
+
+                for (i in tokens) {
+                    console.log(tokens[i]);
+                    instance({
+                        url: "https://api.spotify.com/v1/me/player/devices",
+                        method: 'GET',
+                        headers: {
+                            'Authorization': 'Bearer ' + tokens[i],
+                        },
+                        dataType: 'json'
+                    }).then(function (data) {
+                        var devices = data.data.devices;
+                        var device;
+                        //console.log(devices);
+                        //console.log(devices[0].is_active);
+                        for (j in devices) {
+                        if (devices[j].is_active == true) {
+                            device = devices[j].id;
+                        }
+                        }
+                        //console.log(device);
+                        console.log(tokens[i]);
+                        
+                        instance({
+                            url: "https://api.spotify.com/v1/me/player/next?device_id=" + device,
+                            method: 'POST',
+                            headers: {
+                                'Authorization': 'Bearer ' + tokens[i],
+                            },
+                            dataType: 'json'
+                        });
+                    });
                 }
             });
         });
@@ -379,6 +521,54 @@ window.onSpotifyWebPlaybackSDKReady = () => {
                         $("."+musics[i].id).text("now playing");
                         $("."+musics[i].id).attr("id", "now");
                     }
+                }
+            }).then (function (data) {
+                var enters = JSON.parse($("#enters").text());
+                var users = JSON.parse($("#users").text());
+                //console.log(enters);
+                //console.log(users);
+                var tokens = new Array();
+    
+                for (i in enters) {
+                    for (j in users) {
+                        if (enters[i].user_id == users[j].id) {
+                            tokens.push(users[j].stoken);
+                        }
+                    }
+                }
+                console.log(tokens);
+    
+                for (i in tokens) {
+                    console.log(tokens[i]);
+                    instance({
+                        url: "https://api.spotify.com/v1/me/player/devices",
+                        method: 'GET',
+                        headers: {
+                            'Authorization': 'Bearer ' + tokens[i],
+                        },
+                        dataType: 'json'
+                    }).then(function (data) {
+                var devices = data.data.devices;
+                var device;
+                //console.log(devices);
+                //console.log(devices[0].is_active);
+                for (j in devices) {
+                    if (devices[j].is_active == true) {
+                        device = devices[j].id;
+                        }
+                    }
+                //console.log(device);
+                console.log(tokens[i]);
+                            
+                instance({
+                    url: "https://api.spotify.com/v1/me/player/previous?device_id=" + device,
+                    method: 'POST',
+                    headers: {
+                        'Authorization': 'Bearer ' + tokens[i],
+                    },
+                    dataType: 'json'
+                    });
+                });
                 }
             });
         });

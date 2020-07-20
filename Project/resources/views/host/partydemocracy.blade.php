@@ -35,7 +35,9 @@ function copy() {
                 <span class="d-none" id="token">{{Auth::user()->stoken}}</span>
                 <span class="d-none" id="hosting_id">{{$hosting->id}}</span>
                 <span class="d-none" id="playlist">{{$playlist}}</span>
-                <!-- Single Widget Area -->
+                <span class="d-none" id="enters">{{\App\Enter::where([['hosting_id', $hosting->id], ['status', 'online']])->get()}}</span>
+                <span class="d-none" id="users">{{\App\User::all()}}</span>
+                  <!-- Single Widget Area -->
                 <div class="single-widget-area search-widget-area mb-1 mt-3">
                   <form action="" method="" autocomplete="off">
                     <input id="searchSong" type="search" name="search" class="form-control" placeholder="Search for a song to add to the playlist...">
