@@ -73,7 +73,7 @@ function copy() {
                       <th scope="col">Duration</th>
                       <th scope="col">Votes</th>
                       <th scope="col">Status</th>
-                      <th scope="col"></th>
+                      <th scope="col"></th> 
                     </tr>
                   </thead>
                   <tbody>

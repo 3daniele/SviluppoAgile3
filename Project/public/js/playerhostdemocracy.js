@@ -213,16 +213,16 @@ window.onSpotifyWebPlaybackSDKReady = () => {
         event.preventDefault();
         
         var playlist = JSON.parse($("#playlist").text());
-        //console.log(playlist);
+        console.log(playlist);
     
         var uris = new Array();
     
         for (i in playlist) {
-            // console.log(playlist[i].music_id);
+            console.log(playlist[i].music_id);
             uris.push(playlist[i].music_id);
-            //console.log(uris[i]);
+            console.log(uris[i]);
         }
-        //console.log(uris);
+        console.log(uris); 
 
         var instance = axios.create();
         delete instance.defaults.headers.common['X-CSRF-TOKEN'];
@@ -247,9 +247,9 @@ window.onSpotifyWebPlaybackSDKReady = () => {
                 dataType: 'json'
             }).then(function (data) {
                 var current = data.data.item.uri;
-                console.log(current);
+                //console.log(current);
                 var musics = JSON.parse($("#musics").text());
-                console.log(musics);
+                //console.log(musics);
                 for (i in musics) {
                     //console.log(music[i]);
                     if (current == musics[i].music_id) {
@@ -307,25 +307,27 @@ window.onSpotifyWebPlaybackSDKReady = () => {
                     dataType: 'json'
                 }).then(function (data) {
             var devices = data.data.devices;
-            var device;
-            //console.log(devices);
+            var device = null;
+            console.log(devices);
             //console.log(devices[0].is_active);
             for (j in devices) {
                 if (devices[j].is_active == true) {
                     device = devices[j].id;
                     }
                 }
-            //console.log(device);
+            console.log(device);
             console.log(tokens[i]);
-                        
-            instance({
-                url: "https://api.spotify.com/v1/me/player/play?device_id=" + device,
-                method: 'PUT',
-                headers: {
-                    'Authorization': 'Bearer ' + tokens[i],
-                },
-                dataType: 'json'
-                });
+            
+            if (device != null) {
+                instance({
+                    url: "https://api.spotify.com/v1/me/player/play?device_id=" + device,
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': 'Bearer ' + tokens[i],
+                    },
+                    dataType: 'json'
+                    });
+            }
             });
             }
         });
@@ -362,7 +364,7 @@ window.onSpotifyWebPlaybackSDKReady = () => {
             console.log(tokens);
 
             for (i in tokens) {
-                console.log(tokens[i]);
+                //console.log(tokens[i]);
                 instance({
                     url: "https://api.spotify.com/v1/me/player/devices",
                     method: 'GET',
@@ -372,7 +374,7 @@ window.onSpotifyWebPlaybackSDKReady = () => {
                     dataType: 'json'
                 }).then(function (data) {
             var devices = data.data.devices;
-            var device;
+            var device = null;
             //console.log(devices);
             //console.log(devices[0].is_active);
             for (j in devices) {
@@ -382,15 +384,17 @@ window.onSpotifyWebPlaybackSDKReady = () => {
                 }
             //console.log(device);
             console.log(tokens[i]);
-                        
-            instance({
-                url: "https://api.spotify.com/v1/me/player/pause?device_id=" + device,
-                method: 'PUT',
-                headers: {
-                    'Authorization': 'Bearer ' + tokens[i],
-                },
-                dataType: 'json'
-                });
+            
+            if (device != null) {
+                instance({
+                    url: "https://api.spotify.com/v1/me/player/pause?device_id=" + device,
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': 'Bearer ' + tokens[i],
+                    },
+                    dataType: 'json'
+                    });
+            }
             });
             }
         });
@@ -460,7 +464,7 @@ window.onSpotifyWebPlaybackSDKReady = () => {
                         dataType: 'json'
                     }).then(function (data) {
                         var devices = data.data.devices;
-                        var device;
+                        var device = null;
                         //console.log(devices);
                         //console.log(devices[0].is_active);
                         for (j in devices) {
@@ -471,14 +475,16 @@ window.onSpotifyWebPlaybackSDKReady = () => {
                         //console.log(device);
                         console.log(tokens[i]);
                         
-                        instance({
-                            url: "https://api.spotify.com/v1/me/player/next?device_id=" + device,
-                            method: 'POST',
-                            headers: {
-                                'Authorization': 'Bearer ' + tokens[i],
-                            },
-                            dataType: 'json'
-                        });
+                        if (device != null) {
+                            instance({
+                                url: "https://api.spotify.com/v1/me/player/next?device_id=" + device,
+                                method: 'POST',
+                                headers: {
+                                    'Authorization': 'Bearer ' + tokens[i],
+                                },
+                                dataType: 'json'
+                            });
+                        }
                     });
                 }
             });
@@ -549,7 +555,7 @@ window.onSpotifyWebPlaybackSDKReady = () => {
                         dataType: 'json'
                     }).then(function (data) {
                 var devices = data.data.devices;
-                var device;
+                var device = null;
                 //console.log(devices);
                 //console.log(devices[0].is_active);
                 for (j in devices) {
@@ -559,15 +565,17 @@ window.onSpotifyWebPlaybackSDKReady = () => {
                     }
                 //console.log(device);
                 console.log(tokens[i]);
-                            
-                instance({
-                    url: "https://api.spotify.com/v1/me/player/previous?device_id=" + device,
-                    method: 'POST',
-                    headers: {
-                        'Authorization': 'Bearer ' + tokens[i],
-                    },
-                    dataType: 'json'
+                
+                if (device != null) {
+                    instance({
+                        url: "https://api.spotify.com/v1/me/player/previous?device_id=" + device,
+                        method: 'POST',
+                        headers: {
+                            'Authorization': 'Bearer ' + tokens[i],
+                        },
+                        dataType: 'json'
                     });
+                }
                 });
                 }
             });

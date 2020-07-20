@@ -31,10 +31,7 @@
               </tr>
             </thead>
             <tbody>
-            <span class="d-none" id="music">{{\App\Playlist::where('hosting_id', $hosting->id)->get()}}<span>
-            <?php
-              $count=0;    
-            ?>
+            <span class="d-none" id="musics">{{\App\Playlist::where('hosting_id', $hosting->id)->get()}}<span>
             @foreach(\App\Playlist::where('hosting_id', $hosting->id)->get() as $music)
               <tr>
                   <span class="d-none" id="playlists">{{\App\Playlist::where('hosting_id', $hosting->id)->get()}}<span>
@@ -44,9 +41,7 @@
                   <td class="likeunlike">
                   <button type="button" class="btn btn-primary" id="like" value="{{$music->id}}">Like</button>
                   </td>
-              <?php
-                $count++;    
-              ?>
+                  <td class="{{$music->id}}"></td>
             @endforeach
               </tr> 
           </tbody>

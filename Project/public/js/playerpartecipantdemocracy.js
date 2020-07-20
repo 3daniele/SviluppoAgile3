@@ -63,6 +63,7 @@ window.onSpotifyWebPlaybackSDKReady = () => {
             uris.push(playlist[i].music_id);
             //console.log(uris[i]);
         }
+        console.log(uris);
         var indice=0;
         for(i in uris){
             if(uris[i]==current){
@@ -88,6 +89,30 @@ window.onSpotifyWebPlaybackSDKReady = () => {
                 "position_ms": time
             },
             dataType: 'json'
+        }).then(function (data) {
+            instance({
+                url: "https://api.spotify.com/v1/me/player/currently-playing",
+                method: 'GET',
+                headers: {
+                    'Authorization': 'Bearer ' + token,
+                },
+                dataType: 'json'
+            }).then(function (data) {
+                var current = data.data.item.uri;
+                //console.log(current);
+                var musics = JSON.parse($("#musics").text());
+                //console.log(musics);
+                for (i in musics) {
+                    //console.log(music[i]);
+                    if (current == musics[i].music_id) {
+                        //$("<td class="+"now"+">now playing</td>").appendTo( "."+musics[i].id );
+                        $("#now").text("");
+                        $("#now").removeAttr("id");
+                        $("."+musics[i].id).text("now playing");
+                        $("."+musics[i].id).attr("id", "now");
+                    }
+                }           
+            });
         })
     });
     
