@@ -55,5 +55,16 @@ class InsertAdmin extends Seeder
         );
 
         DB::table('users')->insert($francy);
+
+        $chiara = array(
+            'username' => 'chiara',
+            'email' => 'chiara.19mich@gmail.com',
+            'password' => '$2y$10$3LathfKQzKZ0ggb8dEh1AOCgncIVYbw8gNBHO4cVvE8TQ4o/hqx/6',
+            'email_verified_at' => Carbon::now(),
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        );
+
+        DB::table('users')->insert($chiara);
     }
 }

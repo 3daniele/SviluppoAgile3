@@ -16,6 +16,8 @@
             <span class="d-none" id="token">{{Auth::user()->stoken}}</span>
             <span class="d-none" id="hosting_id">{{$hosting->id}}</span>
             <span class="d-none" id="playlist">{{$playlist}}</span>
+            <span class="d-none" id="htoken">{{\App\User::where('id', $hosting->user_id)->value('stoken')}}</span>
+
 
         <!--Tabella playlist-->
         <table class="table">
