@@ -1,9 +1,8 @@
 {
   "ExpandedNodes": [
     "",
-    "\\app",
-    "\\app\\Http",
     "\\database",
+    "\\database\\factories",
     "\\public",
     "\\public\\js",
     "\\resources",
@@ -12,6 +11,6 @@
     "\\resources\\views\\utente",
     "\\routes"
   ],
-  "SelectedNode": "\\public\\js\\playerpartecipant.js",
+  "SelectedNode": "\\public\\js\\playerhostdemocracy.js",
   "PreviewInSolutionExplorer": false
 }

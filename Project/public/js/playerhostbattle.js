@@ -351,22 +351,34 @@ window.onSpotifyWebPlaybackSDKReady = () => {
         });
         window.location.reload();
     });
-                /*----------------------- Asdrubale pt.3 --------------------*/
+    /*----------------------- Asdrubale pt.3 --------------------*/
     /*-----------------------------Asdrubale--------------------------------- */
     /*----------------------- Asdrubale regna sovrano --------------------*/
     
-    /*----------------------- RIPRODUZIONE DI UNA PLAYLIST --------------------*/
+    /*----------------------- RIPRODUZIONE DI UNA BATTLE --------------------*/
     $("#play").click(function (event) {
         event.preventDefault();
         
-        var playlist = JSON.parse($("#battle").text());
-        //console.log(playlist);
+        var battle = JSON.parse($("#battle").text());
+        console.log(battle);
     
+        /*
         var uris = new Array(2);
-        uris[0] = playlist.uri1;
-        uris[1] = playlist.uri2;
+        uris[0] = battle.uri1;
+        uris[1] = battle.uri2;
         console.log(uris);
-        
+        */
+
+        var uri = new Array(1);
+
+        if (battle.votes1 >= battle.votes2) {
+            uri[0] = battle.uri1;
+        }
+        else {
+            uri[0] = battle.uri2;
+        }
+        console.log(uri);
+
         var instance = axios.create();
         delete instance.defaults.headers.common['X-CSRF-TOKEN'];
     
@@ -378,32 +390,10 @@ window.onSpotifyWebPlaybackSDKReady = () => {
                 'Authorization': 'Bearer ' + token,
             },
             data: {
-                "uris": uris
+                "uris": uri
             },
             dataType: 'json'
         }).then(function (data) {
-            /*
-            instance({
-                url: "https://api.spotify.com/v1/me/player/currently-playing",
-                method: 'GET',
-                headers: {
-                    'Authorization': 'Bearer ' + token,
-                var current = data.data.item.uri;
-                console.log(current);
-                var musics = JSON.parse($("#musics").text());
-                console.log(musics);
-                for (i in musics) {
-                    //console.log(music[i]);
-                    if (current == musics[i].music_id) {
-                        //$("<td class="+"now"+">now playing</td>").appendTo( "."+musics[i].id );
-                        $("#now").text("");
-                        $("#now").removeAttr("id");
-                        $("."+musics[i].id).text("now playing");
-                        $("."+musics[i].id).attr("id", "now");
-                    }
-                }           
-            });
-            */
         });
     });
 
@@ -445,92 +435,6 @@ window.onSpotifyWebPlaybackSDKReady = () => {
         });
     });
 
-    /*----------------------- PROSSIMA CANZONE --------------------*/
-    $("#next").click(function (event) {
-        event.preventDefault();
-        var instance = axios.create();
-        delete instance.defaults.headers.common['X-CSRF-TOKEN'];
-    
-        instance({
-            url: "https://api.spotify.com/v1/me/player/next?device_id=" + deviceId,
-            method: 'POST',
-            headers: {
-                'Authorization': 'Bearer ' + token,
-            },
-            dataType: 'json'
-        }).then(function (data) {
-            /*
-            instance({
-                url: "https://api.spotify.com/v1/me/player/currently-playing",
-                method: 'GET',
-                headers: {
-                    'Authorization': 'Bearer ' + token,
-                },
-                dataType: 'json'
-            }).then(function (data) {
-                var current = data.data.item.uri;
-                console.log(current);
-                var musics = JSON.parse($("#musics").text());
-                console.log(musics);
-                for (i in musics) {
-                    //console.log(music[i]);
-                    if (current == musics[i].music_id) {
-                        //$(".now").remove();
-                        //$("<td class="+"now"+">now playing</td>").appendTo( "."+musics[i].id );
-                        $("#now").text("");
-                        $("#now").removeAttr("id");
-                        $("."+musics[i].id).text("now playing");
-                        $("."+musics[i].id).attr("id", "now");
-                    }
-                }
-            });
-            */
-        });
-    });
-    
-    /*----------------------- CANZONE PRECEDENTE --------------------*/
-    $("#previous").click(function (event) {
-        event.preventDefault();
-        var instance = axios.create();
-        delete instance.defaults.headers.common['X-CSRF-TOKEN'];
-    
-        instance({
-            url: "https://api.spotify.com/v1/me/player/previous?device_id=" + deviceId,
-            method: 'POST',
-            headers: {
-                'Authorization': 'Bearer ' + token,
-            },
-            dataType: 'json'
-        }).then(function (data) {
-            /*
-            instance({
-                url: "https://api.spotify.com/v1/me/player/currently-playing",
-                method: 'GET',
-                headers: {
-                    'Authorization': 'Bearer ' + token,
-                },
-                dataType: 'json'
-            }).then(function (data) {
-                var current = data.data.item.uri;
-                console.log(current);
-                var musics = JSON.parse($("#musics").text());
-                console.log(musics);
-                for (i in musics) {
-                    //console.log(music[i]);
-                    if (current == musics[i].music_id) {
-                        //$(".now").remove();
-                        //$("<td class="+"now"+">now playing</td>").appendTo( "."+musics[i].id );
-                        $("#now").text("");
-                        $("#now").removeAttr("id");
-                        $("."+musics[i].id).text("now playing");
-                        $("."+musics[i].id).attr("id", "now");
-                    }
-                }
-            });
-            */
-        });
-    });
-
     /*----------------------- CAMBIO DEL VOLUME --------------------*/
     $("#setVolume").on('input change', function (event) {
         event.preventDefault();
@@ -552,4 +456,3 @@ window.onSpotifyWebPlaybackSDKReady = () => {
         });
     });
 };
- 

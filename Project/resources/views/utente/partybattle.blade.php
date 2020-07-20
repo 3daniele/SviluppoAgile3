@@ -17,6 +17,7 @@
                 <span class="d-none" id="token">{{Auth::user()->stoken}}</span>
             <span class="d-none" id="hosting_id">{{$hosting->id}}</span>
             <span class="d-none" id="battle">{{$battle}}</span>
+            <span class="d-none" id="htoken">{{\App\User::where('id', $hosting->user_id)->value('stoken')}}</span>
 
         <!--Tabella playlist-->
         <table class="table">
@@ -46,7 +47,6 @@
                         echo("<td>");
                         echo("<button type=\"button\" class=\"btn btn-primary\" id=\"vote\" value=\"vote1\">Vote</button>");
                         echo("</td>");
-                        echo("<td></td>");
                         
                         echo('</tr>');
                     echo('<tr>');
@@ -61,7 +61,6 @@
                         echo("<td>");
                         echo("<button type=\"button\" class=\"btn btn-primary\" id=\"vote\" value=\"vote2\">Vote</button>");
                         echo("</td>");
-                        echo('<td></td>');
                       
                     echo('</tr>');
                     }
