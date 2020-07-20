@@ -104,7 +104,6 @@ function copy() {
                       <th scope="col">Song Name</th>
                       <th scope="col">Duration</th>
                       <th scope="col">Votes</th>
-                      <th scope="col">Status</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -121,7 +120,7 @@ function copy() {
                         echo("<td>'$a'</td>");
                         $a=\App\Battle::where('uri1', $battle->uri1)->value('votes1');
                         echo("<td>'$a'</td>");
-                        echo("<td></td>");
+                       
                         
                         echo('</tr>');
                     echo('<tr>');
@@ -133,18 +132,15 @@ function copy() {
                         echo("<td>'$a'</td>");
                         $a=\App\Battle::where('uri2', $battle->uri2)->value('votes2');
                         echo("<td>'$a'</td>");
-                        echo('<td></td>');
-                      
-                    echo('</tr>');
+                        
+                       echo('</tr>');
                     }
                   ?>
                 </tbody>
                 </table>
-                <button type="button" class="btn btn-primary" id="previous">Previous</button>
                 <button type="button" class="btn btn-primary" id="play">Play</button>
                 <button type="button" class="btn btn-primary" id="resume">Resume</button>
                 <button type="button" class="btn btn-primary" id="pause">Pause</button>
-                <button type="button" class="btn btn-primary" id="next">Next</button>
                 <input type="range" min="0" max="100" value="100" class="slider" id="setVolume">
                 <br>
                 <br>

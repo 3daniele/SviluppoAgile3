@@ -24,9 +24,77 @@ window.onSpotifyWebPlaybackSDKReady = () => {
     // Ready
     player.addListener('ready', ({ device_id }) => {
       console.log('Ready with Device ID', device_id);
-      deviceId = device_id;
+        deviceId = device_id;
+        /*----------------------- BRANO IN RIPRODUZIONE --------------------*/
+        var pippo = $("#htoken").text();
+        console.log(pippo);
+
+        var instance = axios.create();
+        delete instance.defaults.headers.common['X-CSRF-TOKEN'];
+
+        instance({
+            url: "https://api.spotify.com/v1/me/player/currently-playing",
+            method: 'GET',
+            headers: {
+                'Authorization': 'Bearer ' + pippo,
+            },
+            dataType: 'json'
+        }).then(function (data) {
+            var current = data.data.item.uri;//uri corrente
+            //console.log(data);
+            var time = data.data.progress_ms;
+            //console.log(time);
+
+            //riproduzione
+            var battle = JSON.parse($("#battle").text());
+            console.log(battle);
+
+            var uris = new Array(2);
+            uris[0] = battle.uri1;
+            uris[1] = battle.uri2;
+            
+            console.log(uris);
+            
+            var indice = 0;
+            for (i in uris) {
+                if (uris[i] == current) {
+                    indice = i;
+                }
+            }
+            console.log(indice);
+            
+            //SELECT stoken FROM users,hostings,enters WHERE (users.id=enters.user_id && hostings.id=enters.hosting_id && enters.status="online");
+            var instance = axios.create();
+            delete instance.defaults.headers.common['X-CSRF-TOKEN'];
+
+            instance({
+                url: "https://api.spotify.com/v1/me/player/play?device_id=" + deviceId,
+                method: 'PUT',
+                headers: {
+                    'Authorization': 'Bearer ' + token,
+                },
+                data: {
+                    "uris": uris,
+                    "offset": {
+                        "position": indice
+                    },
+                    "position_ms": time
+                },
+                dataType: 'json'
+            }).then(function (data) {
+                instance({
+                    url: "https://api.spotify.com/v1/me/player/currently-playing",
+                    method: 'GET',
+                    headers: {
+                        'Authorization': 'Bearer ' + token,
+                    },
+                    dataType: 'json'
+                }).then(function (data) {
+                });
+            })
+        });
     });
-  
+   
     // Not Ready
     player.addListener('not_ready', ({ device_id }) => {
       console.log('Device ID has gone offline', device_id);
