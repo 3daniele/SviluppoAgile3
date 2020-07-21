@@ -3,12 +3,12 @@
 @section('content')
 <div class="row">
     <div class="col-sm-12">
-        <h1 class="display-3">History Party</h1>    
+        <h1 class="display-3">History Party</h1>
+        <h3>My Parties</h3>    
       <table class="table table-striped">
         <thead>
             <tr>
               <td>Number</td>
-              <td>Date</td>
               <td>Name</td>
               <td>Type</td>
               <td colspan = 2>Actions</td>
@@ -24,7 +24,6 @@
                 <td><?php
                         echo $count;    
                     ?></td>
-                <td>{{$a->create_time}}</td>
                 <td>{{$a->name}}</td>
                 <td>{{$a->type}}</td>
                 <td>
@@ -48,7 +47,7 @@
         </tbody>
       </table>
 
-
+      <h3>My Entries</h3>
       <table class="table table-striped">
         <thead>
             <tr>

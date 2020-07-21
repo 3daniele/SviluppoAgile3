@@ -83,7 +83,7 @@
                         </li>
                         @endif
                         <!--Chiusura party-->
-                        @if(Route::is('hosting.store'))
+                        @if(Route::is('hosting.show'))
                         <li class="nav-item">
                             
                             

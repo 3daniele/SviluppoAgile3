@@ -39,7 +39,11 @@
                   <td>{{ \App\Music::where('uri', $music->music_id)->value('name') }}</td>
                   <td>{{ \App\Music::where('uri', $music->music_id)->value('duration') }}</td>
                   <td class="likeunlike">
+                  @if(\App\Like::where([['playlist_id',$music->id],['user_id',Auth::user()->id]])->exists())
+                  <button type="button" class="btn btn-primary" id="like" disabled=true value="{{$music->id}}">Like</button>
+                  @else
                   <button type="button" class="btn btn-primary" id="like" value="{{$music->id}}">Like</button>
+                  @endif 
                   </td>
                   <td class="{{$music->id}}"></td>
             @endforeach

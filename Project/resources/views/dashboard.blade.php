@@ -45,11 +45,19 @@
                         <td>{{ $hosting->type }}</td>
                         <span>
                         <td>
+                        @if(\App\Enter::where([['hosting_id',$hosting->id],['user_id',Auth::user()->id]])->exists())
+                        <form action="{{ route('user.show',$hosting->id)}}" method="get">
+                            @csrf
+                            @method('GET')
+                            <button class="btn btn-primary" type="submit">View</button>
+                          </form>
+                        @else
                           <form action="{{ route('hosting.join',$hosting->id)}}" method="post">
                             @csrf
                             @method('POST')
                             <button class="btn btn-primary" type="submit">Join</button>
-                          </form>                        
+                          </form>
+                        @endif                        
                       </td>
                 <?php
                     $count++;
