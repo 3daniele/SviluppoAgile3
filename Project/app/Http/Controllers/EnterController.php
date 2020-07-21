@@ -85,4 +85,34 @@ class EnterController extends Controller
         return redirect('dashboard')->with('success','Status update!');
         
     }
+
+    public function join($id) {
+
+        $user_id = Auth::user()->id;
+
+        $playlist = Playlist::where('hosting_id', $id)->orderByDesc('votes')->get()->toJson();
+        $battle = null;
+        if (Battle::where('hosting_id', $id)->exists()) {
+            $battle = Battle::where('hosting_id',$id)->first();
+        }
+
+        if (!(Enter::where([['user_id', $user_id],['hosting_id', $id]])->exists())) {
+            $enter = new Enter([
+                'user_id' => $user_id,
+                'hosting_id'=> $id,
+                'status' => "online",
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ]);
+            $enter->save();
+        }
+
+        $hosting = Hosting::where('id', $id)->first();
+        
+        $hosting_type=Hosting::where('id',$id)->value('type');
+        if($hosting_type=="battle"){
+            return view('utente.partybattle', compact('hosting', 'battle'));//
+        }
+        return view('utente.partydemocracy', compact('hosting', 'playlist')); 
+    }
 }
