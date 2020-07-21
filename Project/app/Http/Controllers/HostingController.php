@@ -59,6 +59,13 @@ class HostingController extends Controller
         ]);
         
         $a=Auth::user()->id;
+        if(Hosting::where([['user_id', $a], ['online', 'yes']])->exists()){
+           $hostingson = Hosting::where([['user_id', $a], ['online', 'yes']])->get();
+           foreach ($hostingson as $hostingon) {
+               $hostingon->online = "no";
+               $hostingon->save();
+            }
+        }
        
         do{
             $code = Str::random(16);
@@ -78,8 +85,8 @@ class HostingController extends Controller
         ]);
 
         $hosting->save();
-        
-        return view('dashboard');
+        $paperino = Hosting::where('url', $url)->value('id');
+        return redirect()->route('hosting.show',$paperino);
         /*
         if($hosting->type=="battle"){
             return view('host.partybattle', compact('hosting'));

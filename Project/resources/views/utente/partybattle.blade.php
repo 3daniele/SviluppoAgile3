@@ -45,7 +45,13 @@
                         $a=\App\Battle::where('uri1', $battle->uri1)->value('votes1');
                         echo("<td>'$a'</td>");
                         echo("<td>");
-                        echo("<button type=\"button\" class=\"btn btn-primary\" id=\"vote\" value=\"vote1\">Vote</button>");
+                        if (\App\Vote::where([['battle_id',$battle->id],['user_id',Auth::user()->id]])->exists()){
+                          echo("<button type=\"button\" class=\"btn btn-primary\" id=\"vote\" disabled=true value=\"vote1\">Vote</button>");
+                        }
+                        else{
+                          echo("<button type=\"button\" class=\"btn btn-primary\" id=\"vote\" value=\"vote1\">Vote</button>");
+                        }
+                        
                         echo("</td>");
                         
                         echo('</tr>');
@@ -59,7 +65,12 @@
                         $a=\App\Battle::where('uri2', $battle->uri2)->value('votes2');
                         echo("<td>'$a'</td>");
                         echo("<td>");
-                        echo("<button type=\"button\" class=\"btn btn-primary\" id=\"vote\" value=\"vote2\">Vote</button>");
+                        if (\App\Vote::where([['battle_id',$battle->id],['user_id',Auth::user()->id]])->exists()){
+                          echo("<button type=\"button\" class=\"btn btn-primary\" id=\"vote\" disabled=true value=\"vote2\">Vote</button>");
+                        }
+                        else{
+                          echo("<button type=\"button\" class=\"btn btn-primary\" id=\"vote\" value=\"vote2\">Vote</button>");
+                        }
                         echo("</td>");
                       
                     echo('</tr>');
