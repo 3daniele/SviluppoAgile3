@@ -36,17 +36,21 @@
                   <?php
                     $count = 1;
                   ?>
-                  @foreach(\App\Hosting::where([['open', 'yes'], ['online', 'yes']])->get() as $hosting)
+                  @foreach(\App\Hosting::where([['user_id', '<>', Auth::user()->id],['open', 'yes'], ['online', 'yes']])->get() as $hosting)
                     <tr>
                         <td>{{ $count }}</td>
                         <td>{{ $hosting->create_time }}</td>
                         <td>{{ $hosting->name }}</td>
                         <td>{{ \App\Genre::where('id', $hosting->genre_id)->value('name')}}</td>
                         <td>{{ $hosting->type }}</td>
-                        
+                        <span>
                         <td>
-                          <button type="button" class="btn btn-primary" id="join" value="{{$hosting->url}}">Join</button>
-                        </td>
+                          <form action="{{ route('hosting.join',$hosting->id)}}" method="post">
+                            @csrf
+                            @method('POST')
+                            <button class="btn btn-primary" type="submit">Join</button>
+                          </form>                        
+                      </td>
                 <?php
                     $count++;
                 ?>
@@ -56,5 +60,4 @@
         </div>
     </div>
 </div>
-<script src="/js/dashboard.js"></script>
 @endsection

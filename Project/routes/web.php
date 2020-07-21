@@ -31,6 +31,7 @@ Route::delete('/hosting/delete/{id}', 'HostingController@destroy')->name('hostin
 Route::get('/hosting/hostview/{id}', 'HostingController@show')->name('hosting.show')->middleware('verified');//partyhost
 Route::get('/hosting/userview/{id}','HostingController@userShow')->name('user.show')->middleware('verified');//user
 Route::get('/hosting/close/{id}', 'HostingController@close')->name('hosting.close')->middleware('verified');
+Route::post('/hosting/{id}/join', 'EnterController@join')->name('hosting.join')->middleware('verified');
 
 //Enters
 Route::get('/enters', 'EnterController@index')->name('enter.index')->middleware('verified');
